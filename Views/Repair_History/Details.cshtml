@@ -1,0 +1,70 @@
+﻿@model PMApp.Models.Repair_History
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="reportHeader">
+    <h3>
+        <img src="~/img/repair.png" alt="Repair Icon" width="55" height="60" />
+        Unit @Model.Unit.Unit_Number Repair
+    </h3>
+</div>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cost)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Work_description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Work_description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ticket_opened)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ticket_opened)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ticket_closed)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ticket_closed)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Work_started)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Work_started)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Work_ended)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Work_ended)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Unit)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Unit.Unit_Number)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Contractor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Contractor.Company_name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="Edit" asp-action="Edit" asp-route-id="@Model.RHID">Edit</a>
+    <a class="backToList" asp-action="Index">Back to List</a>
+</div>

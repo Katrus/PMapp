@@ -1,0 +1,239 @@
+﻿@model PMApp.Models.Unit
+
+@{
+    ViewData["Title"] = "Details";
+    PMApp.Models.Repair_History repairs = null;
+    PMApp.Models.Move_in movein = null;
+    PMApp.Models.Move_out moveout = null;
+}
+
+    <div class="reportHeader">
+        <h1>
+            <img src="~/img/door.jpg" alt="Repair Icon" width="55" height="60" />
+            Unit @Model.Unit_Number
+        </h1>
+    </div>
+
+    <div>
+
+        <p>
+            <input type="button" class="button" value="BACK TO PROPERTIES"
+                   onclick="location.href='@Url.Action("Index", "Buildings")'" />
+        </p>
+    </div>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Unit_Number)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Unit_Number)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Rent_Amount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Rent_Amount)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Square_footage)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Square_footage)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Occupied)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Occupied)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ready_to_rent)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ready_to_rent)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Building)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Building.Org_name)
+        </dd>
+    </dl>
+</div>
+
+<p></p>
+
+<div>
+    <div class="reportHeader">
+        <h5>
+            <img src="~/img/repair.png" alt="Repair Icon" width="55" height="60" />
+            Repairs
+        </h5>
+    </div>
+    <hr />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(x => repairs.Work_description)</th>
+                <th>@Html.DisplayNameFor(x => repairs.Contractor)</th>
+                <th>@Html.DisplayNameFor(x => repairs.Ticket_opened)</th>
+                <th>@Html.DisplayNameFor(x => repairs.Ticket_closed)</th>
+                <th>@Html.DisplayNameFor(x => repairs.Work_started)</th>
+                <th>@Html.DisplayNameFor(x => repairs.Work_ended)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Repair_Histories.OrderBy(item => item.Ticket_opened))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Work_description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Contractor.Company_name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ticket_opened)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ticket_closed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Work_started)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Work_ended)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="MoveInsOuts">
+    <input type="button" class="moveIn" value=" Show Move Ins"
+           onclick="showMoveIns()" />
+
+    <input type="button" class="moveOut" value=" Show Move Outs"
+           onclick="showMoveOuts()" />
+</div>
+
+<div id="unitMoveIns" style="display:none">
+    <div class="reportHeader">
+        <h5>
+            <img src="~/img/movein.jpg" alt="Repair Icon" width="55" height="60" />
+            Move Ins
+        </h5>
+    </div>
+
+    <input type="button" class="moveIn" value=" Hide Move Ins"
+           onclick="hideMoveIns()" />
+
+    <hr />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(x => movein.Date)</th>
+                <th>@Html.DisplayNameFor(x => movein.Carpet)</th>
+                <th>@Html.DisplayNameFor(x => movein.Appliances)</th>
+                <th>@Html.DisplayNameFor(x => movein.Walls)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Move_Ins.OrderBy(item => item.Date))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Carpet)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Appliances)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Walls)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div id="unitMoveOuts" style="display:none">
+    <div class="reportHeader">
+        <h5>
+            <img src="~/img/moveout.jpg" alt="Repair Icon" width="55" height="60" />
+            Move outs
+        </h5>
+    </div>
+
+    <input type="button" class="moveIn" value=" Hide Move Outs"
+           onclick="hideMoveOuts()" />
+
+    <hr />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(x => moveout.Date)</th>
+                <th>@Html.DisplayNameFor(x => moveout.Carpet)</th>
+                <th>@Html.DisplayNameFor(x => moveout.Appliances)</th>
+                <th>@Html.DisplayNameFor(x => moveout.Walls)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Move_Outs.OrderBy(item => item.Date))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Carpet)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Appliances)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Walls)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script>
+
+        function showMoveIns() {
+            var showMoveIn = document.getElementById('unitMoveIns');
+            showMoveIn.style.display = "block";
+        }
+
+        function showMoveOuts() {
+            var showMoveOut = document.getElementById('unitMoveOuts');
+            showMoveOut.style.display = "block";
+        }
+
+        function hideMoveIns() {
+            var hideMoveIn = document.getElementById('unitMoveIns');
+            hideMoveIn.style.display = "none";
+        }
+
+        function hideMoveOuts() {
+            var hideMoveOut = document.getElementById('unitMoveOuts');
+            hideMoveOut.style.display = "none";
+        }
+
+    </script>
+
+    <script src="~/js/reports.js"></script>
+</div>
+
+

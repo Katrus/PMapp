@@ -1,0 +1,78 @@
+﻿@model PMApp.Models.Unit
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xxjapp/xdialog@3/xdialog.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/xxjapp/xdialog@3/xdialog.min.js"></script>
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                xdialog.alert("@ViewBag.Message");
+            };
+    </script>
+}
+
+<div class="reportHeader">
+    <h1>
+        <img src="~/img/door.jpg" alt="Repair Icon" width="55" height="60" />
+        Are you sure you want to delete unit @Model.Unit_Number?
+    </h1>
+</div>
+
+
+<p>
+    <input type="button" class="button" value="BACK TO PROPERTIES"
+           onclick="location.href='@Url.Action("Index", "Buildings")'" />
+</p>
+
+<div>
+    <h4>Unit @Model.Unit_Number</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Unit_Number)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Unit_Number)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Rent_Amount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Rent_Amount)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Square_footage)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Square_footage)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Occupied)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Occupied)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ready_to_rent)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ready_to_rent)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Building)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Building.Org_name)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="UID" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+    </form>
+</div>

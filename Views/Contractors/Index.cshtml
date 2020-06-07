@@ -1,0 +1,98 @@
+﻿@model IEnumerable<PMApp.Models.Contractor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="reportHeader">
+    <h1>
+        <img src="~/img/contract.png" alt="Repair Icon" width="55" height="60" />
+        Contractors
+    </h1>
+</div>
+
+<form asp-controller="Contractors" asp-action="Index" method="get">
+    <p>
+        SEARCH: <input type="text" name="SearchString">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<p>
+    <a class="Create" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Company_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contact_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Specialty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Zip_code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderBy(item => item.Specialty))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contact_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Specialty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Street)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Zip_code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.State)
+                </td>
+                <td>
+                    <a class="Edit" asp-action="Edit" asp-route-id="@item.CID">Edit</a>
+                    <a class="Details" asp-action="Details" asp-route-id="@item.CID">Details</a>
+                    <a onclick="return confirm('Deleting this contractor will delete all his repair records as well!')" class="Delete" asp-action="Delete" asp-route-id="@item.CID">Delete</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

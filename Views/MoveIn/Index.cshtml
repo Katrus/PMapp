@@ -1,0 +1,92 @@
+﻿@model IEnumerable<PMApp.Models.Move_in>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="reportHeader">
+        <h1>
+            <img src="~/img/movein.jpg" alt="Repair Icon" width="55" height="60" />
+            Move Ins
+        </h1>
+    </div>
+
+<p>
+    <input type="button" class="button" value="BACK TO BUILDINGS"
+           onclick="location.href='@Url.Action("Index", "Buildings")'" />
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Carpet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Appliances)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Walls)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Refundable_deposit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nonrefundable_deposit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pet_deposit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tenant)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Unit)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Carpet)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Appliances)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Walls)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Refundable_deposit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nonrefundable_deposit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pet_deposit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tenant.Last_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Unit.Unit_Number)
+                </td>
+                <td>
+                    <a class="Edit" asp-action="Edit" asp-route-id="@item.MIID">Edit</a>
+                    <a class="Details" asp-action="Details" asp-route-id="@item.MIID">Details</a>
+                    <a class="Delete" asp-action="Delete" asp-route-id="@item.MIID">Withdraw</a>
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>

@@ -1,0 +1,67 @@
+﻿@model PMApp.Models.Unit
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xxjapp/xdialog@3/xdialog.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/xxjapp/xdialog@3/xdialog.min.js"></script>
+
+<div class="reportHeader">
+    <h1>
+        <img src="~/img/door.jpg" alt="Repair Icon" width="55" height="60" />
+        Create Unit
+    </h1>
+</div>
+
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                xdialog.alert("@ViewBag.Message");
+            };
+    </script>
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Unit_Number" class="control-label"></label>
+                <input asp-for="Unit_Number" class="form-control" />
+                <span asp-validation-for="Unit_Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rent_Amount" class="control-label"></label>
+                <input asp-for="Rent_Amount" class="form-control" />
+                <span asp-validation-for="Rent_Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BuildingId" class="control-label"></label>
+                <select asp-for="BuildingId" class="form-control" asp-items="ViewBag.BuildingId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Square_footage" class="control-label"></label>
+                <input asp-for="Square_footage" class="form-control" />
+                <span asp-validation-for="Square_footage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <p>
+        <input type="button" class="button" value="BACK TO PROPERTIES"
+               onclick="location.href='@Url.Action("Index", "Buildings")'" />
+    </p>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

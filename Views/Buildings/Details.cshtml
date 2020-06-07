@@ -1,0 +1,198 @@
+﻿
+@model PMApp.Models.Building
+
+@{
+    ViewData["Title"] = "Details";
+    PMApp.Models.Unit unitModel = null;
+
+    PMApp.Models.Tenant tenantModel = null;
+}
+
+    <div class="reportHeader">
+        <h1>
+            <img src="~/img/building.jpg" alt="Repair Icon" width="55" height="60" />
+            @Model.Org_name
+        </h1>
+    </div>
+
+    <p>
+        <input type="button" class="button" value="BACK TO PROPERTIES"
+               onclick="location.href='@Url.Action("Index", "Buildings")'" />
+    </p>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Org_name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Org_name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Unit_Count)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Unit_Count)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Street)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Street)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Zip_code)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Zip_code)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.State)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.State)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TPID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TPID)
+        </dd>
+    </dl>
+</div>
+
+<div class="MoveInsOuts">
+    <input type="button" class="moveIn" value="Move Ins"
+           onclick="location.href='@Url.Action("Index", "MoveIn", new { BuildingId = Model.BuildingId })'" />
+
+    <input type="button" class="moveOut" value="Move Outs"
+           onclick="location.href='@Url.Action("Index", "MoveOut", new { BuildingId = Model.BuildingId })'" />
+</div>
+
+<div style="margin-top: 40px;">
+    <div class="reportHeader">
+         <img src="~/img/door.jpg" alt="Repair Icon" width="55" height="60" />
+         <h5>Units</h5>
+    </div>
+    <hr />
+    <a class="Create" href="@Url.Action("Create", "Units", new { BuildingId = Model.BuildingId })">Create Unit</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(x => unitModel.Unit_Number)</th>
+                <th>@Html.DisplayNameFor(x => unitModel.Rent_Amount)</th>
+                <th>@Html.DisplayNameFor(x => unitModel.Square_footage)</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Units.OrderBy(item => item.Unit_Number))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Unit_Number)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rent_Amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Square_footage)
+                    </td>
+                    <td>
+                        <a class="Edit" asp-action="Edit" asp-route-id="@item.UID" asp-controller="Units">Edit</a>
+                        <a class="Details" asp-action="Details" asp-route-id="@item.UID" asp-controller="Units">Details</a>
+                        <a class="Delete" asp-action="Delete" asp-route-id="@item.UID" asp-controller="Units">Delete</a>
+                    </td>
+                    <td>
+                        @if (item.Ready_to_rent.Equals("Yes") && item.Occupied.Equals("No"))
+                        {
+                            <input type="button" class="moveIn" value="Move In"
+                                   onclick="location.href='@Url.Action("pickTenant", "MoveIn", new { UID = item.UID })'" />
+                            <input type="button" class="makeAvailable" value="Make Unvailable"
+                                   onclick="location.href='@Url.Action("makeUnavailable", "Buildings", new {BuildingId = Model.BuildingId, UnitUID = item.UID })'" />
+
+                        }
+                        else if (item.Ready_to_rent.Equals("No") && item.Occupied.Equals("Yes"))
+                        {
+                            <input type="button" class="moveOut" value="Move Out"
+                                   onclick="location.href='@Url.Action("Create", "MoveOut", new {BuildingId = Model.BuildingId, UnitUID = item.UID })'" />
+                        }
+                        else if (item.Ready_to_rent.Equals("No") && item.Occupied.Equals("No"))
+                        {
+                            <input type="button" class="makeAvailable" value="Make Available"
+                                   onclick="location.href='@Url.Action("makeAvailable", "Buildings", new {BuildingId = Model.BuildingId, UnitUID = item.UID })'" />
+                        }
+                
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div style="margin-top: 40px;">
+    <div class="reportHeader">
+        <img src="~/img/grandmother.jpg" alt="Repair Icon" width="55" height="60" />
+        <h5>Tenants</h5>
+    </div>
+   
+    <hr />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(x => tenantModel.Last_name)</th>
+                <th>@Html.DisplayNameFor(x => tenantModel.First_name)</th>
+                <th>@Html.DisplayNameFor(x => tenantModel.Lease_start_date)</th>
+                <th>@Html.DisplayNameFor(x => tenantModel.Lease_end_date)</th>
+                <th>@Html.DisplayNameFor(x => tenantModel.Phone)</th>
+                <th>@Html.DisplayNameFor(x => tenantModel.Email)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Tenants.OrderBy(item => item.Last_name))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Last_name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.First_name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Lease_start_date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Lease_end_date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        <a class="Details" asp-action="Details" asp-route-id="@item.TID" asp-controller="Tenants">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div style="margin-top: 20px;">
+    <a class="Edit" asp-action="Edit" asp-route-id="@Model.BuildingId">Edit</a> 
+    <a class="Delete" asp-action="Delete" asp-route-id="@Model.BuildingId">Delete</a>
+    
+</div>

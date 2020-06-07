@@ -1,0 +1,64 @@
+﻿@model IEnumerable<PMApp.Models.Infractions>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="reportHeader">
+        <h1>
+            <img src="~/img/infraction.jpg" alt="Infraction Icon" width="55" height="60" />
+            Infractions
+        </h1>
+    </div>
+
+<p>
+    <a class="Create" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Day_opened)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Day_closed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resolution)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tenant)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.OrderBy(item => item.Day_opened)) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Day_opened)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Day_closed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Resolution)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tenant.First_name)
+            </td>
+            <td>
+                <a class="Edit" asp-action="Edit" asp-route-id="@item.IID">Edit</a> |
+                <a class="Details" asp-action="Details" asp-route-id="@item.IID">Details</a> |
+                <a class="Delete" asp-action="Delete" asp-route-id="@item.IID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

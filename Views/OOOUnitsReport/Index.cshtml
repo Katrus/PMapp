@@ -1,0 +1,74 @@
+﻿@model IEnumerable<PMApp.ViewModels.OOOViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="reportHeader">
+    <img src="~/img/report1.png" alt="Report Icon" width="55" height="60" />
+    <h1>Out of Order Units </h1>
+</div>
+
+<p></p>
+<p></p>
+
+<p>
+    <input type="button" class="button" value="BACK TO REPORTS"
+           onclick="location.href='@Url.Action("Index", "Checklists")'" />
+</p>
+
+<p></p>
+<p></p>
+
+<form asp-controller="OOOUnitsReport" asp-action="Index" method="get">
+    <p>
+        SEARCH: <input type="text" name="SearchString">
+        <input type="submit" value="Filter" />
+    </p>
+
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Unit_Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rent_Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Square_footage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Property)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Work_description)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Unit_Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rent_Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Square_footage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Property)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Work_description)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

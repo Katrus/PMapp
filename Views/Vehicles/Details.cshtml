@@ -1,0 +1,64 @@
+﻿@model PMApp.Models.Vehicle
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+    <div class="reportHeader">
+        <h3>
+            <img src="~/img/car.jpg" alt="Car Icon" width="55" height="60" />
+            Vehicle details
+        </h3>
+    </div>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.License_plate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.License_plate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Make)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Make)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.stall_number)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.stall_number)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Tenant)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tenant.First_name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="Edit" asp-action="Edit" asp-route-id="@Model.VID">Edit</a> |
+    <a class="backToList" asp-action="Index">Back to List</a>
+</div>

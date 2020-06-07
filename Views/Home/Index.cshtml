@@ -1,0 +1,52 @@
+﻿
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+
+    <main>
+        <div class="overlayImage">
+            <img src="~/img/bkg.jpg" alt="lounge picture" id="bgImage" />
+            <div class="bgText">
+
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <h2 class="HomeWelcome">Property Management App</h2>
+                    <h4>Welcome, @User.Identity.Name</h4>
+
+                }
+                else
+                {
+                    <h1 class="HomeWelcome">Welcome to the Property Management App</h1>
+                    <div class="LoginTextButton">
+                        <h4>Login to access your Properties </h4>
+
+                        <a id="Login" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login"></a>
+                    </div>
+
+                }
+            </div>
+
+            <script type="text/javascript">
+            var image = document.getElementById("bgImage");
+            var currentPos = 0;
+                var images = ["/img/bkg3.jpg", "/img/bkg4.jpg", "/img/budings.jpg", "/img/bkg.jpg"]
+
+            function changeImg() {
+                if (++currentPos >= images.length)
+                    currentPos = 0;
+
+                image.src = images[currentPos];
+            }
+
+            setInterval(changeImg, 3000);
+            </script>
+
+        </div>
+
+    </main>
+
+</div>

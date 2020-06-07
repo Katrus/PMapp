@@ -1,0 +1,28 @@
+﻿@model PMApp.Models.Checklist
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+    <div class="reportHeader">
+        <h1>
+            <img src="~/img/alarm.jpg" alt="Repair Icon" width="55" height="60" />
+            Details
+        </h1>
+    </div>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Reminder)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Reminder)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="Edit" asp-action="Edit" asp-route-id="@Model.checklistId">Edit</a> 
+    <a class="backToList" asp-action="Index">Back to List</a>
+</div>

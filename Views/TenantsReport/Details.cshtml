@@ -1,0 +1,75 @@
+﻿@model PMApp.Models.Tenant
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@Model.Last_name @Model.First_name</h1>
+
+
+<div>
+    <h4>Tenant Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Last_name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Last_name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.First_name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.First_name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Employer)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employer)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Salary)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Salary)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Lease_start_date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Lease_start_date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Lease_end_date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Lease_end_date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pets)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pets)
+        </dd>
+    </dl>
+</div>
+<div>
+    <p>
+        <input type="button" class="button" value="BACK TO LIST"
+               onclick="location.href='@Url.Action("Index", "TenantsReport")'" />
+    </p>
+</div>

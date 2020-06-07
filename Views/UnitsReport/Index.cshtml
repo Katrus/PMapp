@@ -1,0 +1,81 @@
+﻿@model IEnumerable<PMApp.Models.Unit>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="reportHeader">
+    <img src="~/img/report1.png" alt="Report Icon" width="55" height="60" />
+    <h1>General Units Summary Report</h1>
+</div>
+
+<p></p>
+<p></p>
+
+<p>
+    <input type="button" class="button" value="BACK TO REPORTS"
+           onclick="location.href='@Url.Action("Index", "Checklists")'" />
+</p>
+
+<p></p>
+<p></p>
+
+<form asp-controller="UnitsReport" asp-action="Index" method="get">
+    <p>
+        SEARCH: <input type="text" name="SearchString">
+        <input type="submit" value="Filter" />
+    </p>
+
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Unit_Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rent_Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Square_footage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Occupied)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ready_to_rent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Building)
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderBy(item => item.Building.Org_name).OrderBy(item => item.Unit_Number))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Unit_Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rent_Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Square_footage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Occupied)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ready_to_rent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Building.Org_name)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

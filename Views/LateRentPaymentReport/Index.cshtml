@@ -1,0 +1,105 @@
+﻿@model IEnumerable<PMApp.ViewModels.RentViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="reportHeader">
+    <img src="~/img/report1.png" alt="Report Icon" width="55" height="60" />
+    <h1>Late Paid Rent Report</h1>
+</div>
+
+<p></p>
+<p></p>
+
+<p>
+    <input type="button" class="button" value="BACK TO REPORTS"
+           onclick="location.href='@Url.Action("Index", "Checklists")'" />
+</p>
+
+<p></p>
+<p></p>
+
+<form asp-controller="LateRentPaymentReport" asp-action="Index" method="get">
+    <p>
+        SEARCH: <input type="text" name="SearchString">
+        <input type="submit" value="Filter" />
+    </p>
+
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date_due)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date_paid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DaysLate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rent_amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Last_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Property)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Unit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderByDescending(item => item.DaysLate))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_due)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_paid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DaysLate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rent_amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Last_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.First_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Property)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Unit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+               
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<PMApp.ViewModels.TenantViewModel>
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="reportHeader">
+   <img src="~/img/report1.png" alt="Report Icon" width="55" height="60" />
+   <h1>All Tenants Report</h1>
+</div>
+
+<p></p>
+<p></p>
+
+<p>
+    <input type="button" class="button" value="BACK TO REPORTS"
+           onclick="location.href='@Url.Action("Index", "Checklists")'" />
+</p>
+
+<p></p>
+<p></p>
+
+<form asp-controller="TenantsReport" asp-action="Index" method="get">
+    <p>
+        SEARCH: <input type="text" name="SearchString">
+        <input type="submit" value="Filter" />
+    </p>
+
+</form>
+
+<p></p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Last_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lease_start_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lease_end_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Property)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Unit)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderBy(item => item.Property))
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Last_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.First_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lease_start_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lease_end_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Property)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Unit)
+            </td>
+
+            <td>
+                <a class="Details" asp-action="Details" asp-route-id="@item.TID">Details</a> 
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<PMApp.ViewModels.RentViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="reportHeader">
+    <img src="~/img/report1.png" alt="Report Icon" width="55" height="60" />
+    <h1>General Monthly Rent Income Report</h1>
+</div>
+
+<p></p>
+<p></p>
+
+<p>
+    <input type="button" class="button" value="BACK TO REPORTS"
+           onclick="location.href='@Url.Action("Index", "Checklists")'" />
+</p>
+
+<p></p>
+<p></p>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Month)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rent_amount)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderByDescending(item => item.Year).OrderBy(item => item.MonthNum))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Month)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rent_amount)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

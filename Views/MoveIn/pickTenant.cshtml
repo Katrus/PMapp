@@ -1,0 +1,66 @@
+﻿@model IEnumerable<PMApp.ViewModels.TenantViewModel>
+
+@{
+    ViewData["Title"] = "pickTenant";
+}
+
+    <div class="reportHeader">
+        <h1>
+            <img src="~/img/grandmother.jpg" alt="Repair Icon" width="55" height="60" />
+            Select a Tenant
+        </h1>
+    </div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Last_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lease_start_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lease_end_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.OrderBy(item => item.Last_name)) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Last_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.First_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lease_start_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lease_end_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                <input type="button" class="Select" value="Select"
+                       onclick="location.href='@Url.Action("Create", "MoveIn", new {UnitUID = item.UnitUID, TID = item.TID })'" />
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

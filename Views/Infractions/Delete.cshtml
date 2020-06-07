@@ -1,0 +1,54 @@
+﻿@model PMApp.Models.Infractions
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+    <div class="reportHeader">
+        <h5>
+            <img src="~/img/infraction.jpg" alt="Infraction Icon" width="55" height="60" />
+            Are you sure you want to delete this infraction?
+        </h5>
+    </div>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Day_opened)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Day_opened)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Day_closed)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Day_closed)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Resolution)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Resolution)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Tenant)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tenant.First_name)
+        </dd class>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="IID" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a class="backToList" asp-action="Index">Back to List</a>
+    </form>
+</div>

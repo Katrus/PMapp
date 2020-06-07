@@ -1,0 +1,90 @@
+﻿@model PMApp.Models.Move_in
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xxjapp/xdialog@3/xdialog.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/xxjapp/xdialog@3/xdialog.min.js"></script>
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                xdialog.alert("@ViewBag.Message");
+            };
+    </script>
+}
+
+<div class="reportHeader">
+    <h1>
+        <img src="~/img/movein.jpg" alt="Repair Icon" width="55" height="60" />
+        Are you sure you want to withdraw move in?
+    </h1>
+</div>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Carpet)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Carpet)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Appliances)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Appliances)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Walls)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Walls)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Refundable_deposit)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Refundable_deposit)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nonrefundable_deposit)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nonrefundable_deposit)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pet_deposit)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pet_deposit)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Tenant)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Tenant.First_name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Unit)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Unit.UID)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MIID" />
+        <input type="submit" value="Withdraw" class="btn btn-danger" />
+        <a class="backToList" asp-action="Index">Back to List</a>
+    </form>
+</div>

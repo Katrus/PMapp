@@ -1,0 +1,69 @@
+﻿@model PMApp.Models.Repair_History
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Repair_History</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="RHID" />
+            <div class="form-group">
+                <label asp-for="Cost" class="control-label"></label>
+                <input asp-for="Cost" class="form-control" />
+                <span asp-validation-for="Cost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Work_description" class="control-label"></label>
+                <input asp-for="Work_description" class="form-control" />
+                <span asp-validation-for="Work_description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ticket_opened" class="control-label"></label>
+                <input asp-for="Ticket_opened" class="form-control" />
+                <span asp-validation-for="Ticket_opened" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ticket_closed" class="control-label"></label>
+                <input asp-for="Ticket_closed" class="form-control" />
+                <span asp-validation-for="Ticket_closed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Work_started" class="control-label"></label>
+                <input asp-for="Work_started" class="form-control" />
+                <span asp-validation-for="Work_started" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Work_ended" class="control-label"></label>
+                <input asp-for="Work_ended" class="form-control" />
+                <span asp-validation-for="Work_ended" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitUID" class="control-label"></label>
+                <select asp-for="UnitUID" class="form-control" asp-items="ViewBag.UnitUID"></select>
+                <span asp-validation-for="UnitUID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContractorCID" class="control-label"></label>
+                <select asp-for="ContractorCID" class="form-control" asp-items="ViewBag.ContractorCID"></select>
+                <span asp-validation-for="ContractorCID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

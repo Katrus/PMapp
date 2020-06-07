@@ -1,0 +1,76 @@
+﻿@model IEnumerable<PMApp.Models.Vehicle>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="reportHeader">
+        <h1>
+            <img src="~/img/car.jpg" alt="Car Icon" width="55" height="60" />
+            Vehicles
+        </h1>
+    </div>
+
+<p>
+    <a class="Create" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.License_plate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Make)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.stall_number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tenant)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.License_plate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Make)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.stall_number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tenant.First_name)
+            </td>
+            <td>
+                <a class="Edit" asp-action="Edit" asp-route-id="@item.VID">Edit</a> |
+                <a class="Details" asp-action="Details" asp-route-id="@item.VID">Details</a> |
+                <a class="Delete" asp-action="Delete" asp-route-id="@item.VID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

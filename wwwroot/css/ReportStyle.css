@@ -1,0 +1,452 @@
+ul.reportList {
+    font-size: 20px;
+    list-style-type: none;
+    padding: 0;
+    margin-right: 10px;
+    width: 50%;
+    overflow: hidden;
+    overflow-y: scroll;
+    min-height: 300px;
+    max-height: 500px;
+}
+
+    .reportIcon {
+        display: inline-block;
+        float: left;
+        width: 100%;
+        
+    }
+
+.reportList li a {
+    border: 3px outset #dedede; /* Add a border to all links */
+    border-radius: 5px;
+    margin-top: 3px; /* Prevent double borders */
+    background: linear-gradient(to right, #e6e6e6 5%, #ffffff 90%, #e6e6e6 100%) !important;
+    padding: 10px; /* Add some padding */
+    text-decoration: none; /* Remove default text underline */
+    font-size: 16px; /* Increase the font-size */
+    font-family: 'Times New Roman', Times;
+    font-weight: bold;
+    color: #08224d; /* Add a black text color */
+    text-align: left;
+    display: block;
+}
+
+        .reportList li a:hover:not(.header) {
+            background-color: #d4e8a2; /* Add a hover effect to all links, except for headers */
+        }
+
+#myInput {
+    background-image: url("../img/Search.PNG"); /* Add a search icon to input */
+    background-size: 20px;
+    background-position: 10px 12px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 100%; /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #a6a6a6; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+}
+
+.reportImg {
+    float: left;
+    position:center;
+    padding: 5px;
+    padding-top: 7px;
+    padding-left: 20px;
+}
+
+.reportIcon {
+    margin-right: 10px;
+}
+
+.reportHeader {
+    display: flex;
+    justify-content:flex-start;
+    padding-right: 10px;
+}
+
+.button {
+    background-color: #5730f2; 
+    border-radius: 7px;
+    border: outset;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+    .button:hover {
+        background-color: #0e4580;
+        color: white;
+        text-decoration: none;
+    }
+
+#bkgpic {
+    padding: 0;
+    display: block;
+    margin: 0 auto;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+#logo {
+    padding: 5px;
+    width: 90px;
+}
+
+.mainHorizontal {
+    display:flex;
+    flex-direction: row;
+}
+
+
+.overlayImage {
+    position: relative;
+    width: 100%;
+}
+
+.overlayImage #bgImage {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+    .overlayImage .bgText {
+        color: #fff;
+        font-size: 30px;
+        line-height: 1.5em;
+        text-shadow: 2px 2px 2px #000;
+        text-align: center;
+        position: absolute;
+        top: 200px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+.navbar, .navbar-inverse {
+    background: linear-gradient(to bottom, #ffffff 0%, #d3dce3 100%) !important;
+}
+
+.dl, .col-sm-2 {
+    background: linear-gradient(to bottom, ##7aa3e6 0%, #9dbbed 100%);
+    padding: 4px;
+}
+
+.dl, .col-sm-10 {
+    background-color: #f2fbff;
+}
+
+#today {
+    color: white;
+    background: linear-gradient(to right, #a772db 0%, #dcb5ff 100%) !important;
+    padding: 15px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.chCreate {
+    background-color: white;
+    border: none;
+    border-radius: 90%;
+    color: grey;
+    font-weight: bold;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 4px;
+    float: right;
+}
+
+#section {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    max-height: 500px;
+    margin-left: 80px;
+    overflow: hidden;
+    overflow-y: scroll;
+    background-color: #21023d;
+    padding: 15px;
+    color: white;
+    font-family: 'Times New Roman', Times;
+    float: right;
+}
+
+#chBody {
+    background-color: none;
+    color: white;
+    font-size: 16px;
+    text-align: left;
+    margin: 30px;
+    padding-left:10px;
+    padding-right: 3px;
+    font-family: 'Times New Roman', Times;
+}
+
+    #chBody > tr:nth-child(odd) {
+        background-color: #5e5e5e;
+        color: white;
+        font-size: 16px;
+        margin-bottom: 7px;
+        padding-left: 10px;
+        text-align: left;
+        font-family: 'Times New Roman', Times;
+    }
+
+.Delete {
+    background-color: #822139;
+    color: white;
+    font: bold;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border: outset;
+    padding: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: 'Times New Roman', Times;
+}
+
+
+.Edit {
+    background-color: #dea107;
+    color: white;
+    font: bold;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border: outset;
+    padding: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: 'Times New Roman', Times;
+}
+
+.Details {
+    background-color: #2496ed;
+    color: white;
+    font: bold;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border: outset;
+    padding: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: 'Times New Roman', Times;
+}
+
+.Create {
+    background-color: #1ec4c9;
+    color: white;
+    font: bold;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border: outset;
+    padding: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: 'Times New Roman', Times;
+    margin-bottom: 5px;
+}
+
+   .Create:hover {
+       text-decoration: none;
+       color: saddlebrown;
+   }
+
+    .Delete:hover {
+        text-decoration: none;
+        color: saddlebrown;
+    }
+
+    .Edit:hover {
+        text-decoration: none;
+        color: saddlebrown;
+    }
+
+    .Details:hover {
+        text-decoration: none;
+        color: saddlebrown;
+    }
+
+#welcome {
+    font-family: 'Times New Roman', Times;
+    text-align: left;
+    text-underline-position: below;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    padding: 10px;
+
+}
+
+#buildingImg {
+    max-width: 600px;
+    max-height: 500px;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-right: 30px;
+}
+
+.moveIn {
+    background-color: #237e91;
+    border: outset;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.moveIn:hover {
+    background-color: #0e4580;
+    color: white;
+}
+
+.moveOut {
+    background-color: #237e91;
+    border: outset;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.moveOut:hover {
+    background-color: #0e4580; 
+    color: white;
+}
+
+.MoveInsOuts {
+    display: flex;
+    flex-direction: row;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding-right: 15px;
+}
+
+.makeAvailable {
+    background-color: #616161;
+    border: outset;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.makeAvailable:hover {
+    background-color: #0e4580; 
+    color: white;
+}
+
+.backToList {
+    background-color: #00cc00;
+    border: outset;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+    .backToList:hover {
+       text-decoration: none;
+       color: saddlebrown;
+       border-color:none;
+    }
+
+
+.Select {
+    background-color: #3e32a8;
+    border: outset;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.Select:hover {
+    background-color: #0e4580; 
+    color: white;
+}
+
+h1 {
+    color: #2a1594;
+    font-family: serif;
+}
+
+.HomeWelcome {
+    color: white;
+    font-size: 40px;
+}
+
+#Login {
+    background-image: url(../img/login.jpg);
+    background-repeat: no-repeat;
+    width: 47px;
+    height: 55px;
+    margin-left: 15px;
+}
+
+.LoginTextButton {
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+}
+
+h5 {
+    color: darkblue;
+}
+
+.xd-content .xd-body .xd-body-inner {
+    max-height: unset;
+}
+
+.xd-content .xd-body p {
+    color: #270f7d;
+    font-weight: bolder;
+    font-size: 18px;
+}
+
+.xd-content .xd-button.xd-ok {
+    background: #270f7d;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: green;
+}
+
+
+
+
+

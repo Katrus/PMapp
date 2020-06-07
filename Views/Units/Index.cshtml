@@ -1,0 +1,69 @@
+﻿@model IEnumerable<PMApp.Models.Unit>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="reportHeader">
+    <h1>
+        <img src="~/img/door.jpg" alt="Repair Icon" width="55" height="60" />
+        @ViewBag.Bname
+    </h1>
+</div>
+
+<p>
+    <a class="Create" asp-action="Create">New Unit</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Unit_Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rent_Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Square_footage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Occupied)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ready_to_rent)
+            </th>
+            <th></th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderBy(item => item.Unit_Number))
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Unit_Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rent_Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Square_footage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Occupied)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ready_to_rent)
+            </td>
+            <td>
+                <a class="Edit" asp-action="Edit" asp-route-id="@item.UID">Edit</a>
+                <a class="Details" asp-action="Details" asp-route-id="@item.UID">Details</a>
+                <a class="Delete" asp-action="Delete" asp-route-id="@item.UID">Delete</a>
+            </td>
+
+        </tr>
+        }
+    </tbody>
+</table>

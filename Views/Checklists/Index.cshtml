@@ -1,0 +1,136 @@
+﻿@model IEnumerable<PMApp.Models.Checklist>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="text-center">
+    <main>
+        
+        <div class="reportHeader">
+            <h1>
+             <img src="~/img/Report.jpg" alt="Report Icon" width="55" height="60" />
+             Report
+            </h1>
+        </div>
+
+
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for reports..">
+
+            <div class="mainHorizontal">
+                <ul class="reportList" id="reportList">
+                    <li class="reportIcon">
+                        <img src="~/img/report1.png" class="reportImg" alt="Report Icon" width="55" height="46" />
+                        <a href="@Url.Action("Index", "BuildingsReport")">Managed Properties Report</a>
+                    </li>
+                    <li class="reportIcon">
+                        <img src="~/img/report1.png" class="reportImg" alt="Report Icon" width="55" height="46" />
+                        <a href="@Url.Action("Index", "GeneralTaxReport")">General Yearly Tax Report</a>
+                    </li>
+                    <li class="reportIcon">
+                        <img src="~/img/report1.png" class="reportImg" alt="Report Icon" width="55" height="46" />
+                        <a href="@Url.Action("Index", "TaxReport")">Detailed Tax Summary Report</a>
+                    </li>
+                    <li class="reportIcon">
+                        <img src="~/img/report1.png" class="reportImg" alt="Report Icon" width="55" height="46" />
+                        <a href="@Url.Action("Index", "VehiclesReport")">Vehicles Currently Allowed to Park Report</a>
+                    </li>
+                    <li class="reportIcon">
+                        <img src="~/img/report1.png" class="reportImg" alt="Report Icon" width="55" height="46" />
+                        <a href="@Url.Action("Index", "TenantsReport")">General All Tenants Report</a>
+                    </li>
+                    <li class="reportIcon">
+                        <img src="~/img/report1.png" class="reportImg" alt="Report Icon" width="55" height="46" />
+                        <a href="@Url.Action("Index", "CurrentTenantsReport")">Current Tenants Report</a>
+                    </li>
+                    <li class="reportIcon">
+                        <img src="~/img/report1.png" class="reportImg" alt="Report Icon" width="55" height="46" />
+                        <a href="@Url.Action("Index", "DelinquentRentReport")">Delinquent Rent Payments Report</a>
+                    </li>
+                    <li class="reportIcon">
+                        <img src="~/img/report1.png" class="reportImg" alt="Report Icon" width="55" height="46" />
+                        <a href="@Url.Action("Index", "MonthlyRentReport")">General Monthly Rent Income Report</a>
+                    </li>
+                    <li class="reportIcon">
+                        <img src="~/img/report1.png" class="reportImg" alt="Report Icon" width="55" height="46" />
+                        <a href="@Url.Action("Index", "LateRentPaymentReport")">Late Rent Payments Report</a>
+                    </li>
+                    <li class="reportIcon">
+                        <img src="~/img/report1.png" class="reportImg" alt="Report Icon" width="55" height="46" />
+                        <a href="@Url.Action("Index", "ContractorsReport")">Contractors List Report</a>
+                    </li>
+                    <li class="reportIcon">
+                        <img src="~/img/report1.png" class="reportImg" alt="Report Icon" width="55" height="46" />
+                        <a href="@Url.Action("Index", "OpenInfractionsReport")">Not Resolved Infractions Report</a>
+                    </li>
+                    <li class="reportIcon">
+                        <img src="~/img/report1.png" class="reportImg" alt="Report Icon" width="55" height="46" />
+                        <a href="@Url.Action("Index", "InfractionsReport")">Resolved Infractions Report</a>
+                    </li>
+                    <li class="reportIcon">
+                        <img src="~/img/report1.png" class="reportImg" alt="Report Icon" width="55" height="46" />
+                        <a href="@Url.Action("Index", "UnitsReport")">General Units Summary Report</a>
+                    </li>
+                    <li class="reportIcon">
+                        <img src="~/img/report1.png" class="reportImg" alt="Report Icon" width="55" height="46" />
+                        <a href="@Url.Action("Index", "ReadyToRentUnits")">Available for Rent Units Report</a>
+                    </li>
+                    <li class="reportIcon">
+                        <img src="~/img/report1.png" class="reportImg" alt="Report Icon" width="55" height="46" />
+                        <a href="@Url.Action("Index", "OOOUnitsReport")">Out of Order Units Report</a>
+                    </li>
+                    <li class="reportIcon">
+                        <img src="~/img/report1.png" class="reportImg" alt="Report Icon" width="55" height="46" />
+                        <a href="@Url.Action("Index", "RepairsOpenTickets")">Repairs: Open Tickets Report</a>
+                    </li>
+                    <li class="reportIcon">
+                        <img src="~/img/report1.png" class="reportImg" alt="Report Icon" width="55" height="46" />
+                        <a href="@Url.Action("Index", "MoveInReport")">Move-ins Report</a>
+                    </li>
+                    <li class="reportIcon">
+                        <img src="~/img/report1.png" class="reportImg" alt="Report Icon" width="55" height="46" />
+                        <a href="@Url.Action("Index", "MoveOutReport")">Move-outs Report</a>
+                    </li>
+
+                </ul>
+
+                <div id="section">
+                    <div id="welcome">
+                        <h4>Welcome Back</h4>
+                        <h5>Reminders</h5>
+                    </div>
+                    <div id="today">
+                        <h4> Today is @DateTime.Today.DayOfWeek</h4>
+                        <h5>@DateTime.Today.ToString("dd, MMMM yyyy")</h5>
+                        <input type="button" class="chCreate" value="+"
+                               onclick="location.href='@Url.Action("Create", "Checklists")'" />
+                    </div>
+
+                    
+                    <table>
+                        <tbody id="chBody">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Reminder)
+                                    </td>
+                                    <td>
+                                        <a class="Delete" asp-action="Delete" asp-route-id="@item.checklistId">x</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+        </main>
+
+        <script src="~/js/reports.js"></script>
+
+
+    </div>
+
+

@@ -1,0 +1,68 @@
+﻿@model PMApp.Models.Rent
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+    <div class="reportHeader">
+        <h3>
+            <img src="~/img/rent.jpg" alt="Money Icon" width="55" height="60" />
+            Edit rent record
+        </h3>
+    </div>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="RID" />
+            <div class="form-group">
+                <label asp-for="Date_due" class="control-label"></label>
+                <input asp-for="Date_due" class="form-control" />
+                <span asp-validation-for="Date_due" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date_paid" class="control-label"></label>
+                <input asp-for="Date_paid" class="form-control" />
+                <span asp-validation-for="Date_paid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rent_amount" class="control-label"></label>
+                <input asp-for="Rent_amount" class="form-control" />
+                <span asp-validation-for="Rent_amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pet_fee" class="control-label"></label>
+                <input asp-for="Pet_fee" class="form-control" />
+                <span asp-validation-for="Pet_fee" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Parking_fee" class="control-label"></label>
+                <input asp-for="Parking_fee" class="form-control" />
+                <span asp-validation-for="Parking_fee" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TenantTID" class="control-label"></label>
+                <select asp-for="TenantTID" class="form-control" asp-items="ViewBag.TenantTID"></select>
+                <span asp-validation-for="TenantTID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitUID" class="control-label"></label>
+                <select asp-for="UnitUID" class="form-control" asp-items="ViewBag.UnitUID"></select>
+                <span asp-validation-for="UnitUID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="backToList" asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

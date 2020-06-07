@@ -1,0 +1,56 @@
+﻿@model IEnumerable<PMApp.Models.Tax_Parcel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="reportHeader">
+        <img src="~/img/report1.png" alt="Report Icon" width="55" height="60" />
+        <h1>General Yearly Tax Report</h1>
+    </div>
+
+<p></p>
+<p></p>
+
+<p>
+    <input type="button" class="button" value="BACK TO REPORTS"
+           onclick="location.href='@Url.Action("Index", "Checklists")'" />
+</p>
+
+<p></p>
+<p></p>
+
+<form asp-controller="GeneralTaxReport" asp-action="Index" method="get">
+    <p>
+        SEARCH BY YEAR: <input type="text" name="SearchString">
+        <input type="submit" value="Filter" />
+    </p>
+
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.amount)
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderByDescending(item => item.Year))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.amount)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

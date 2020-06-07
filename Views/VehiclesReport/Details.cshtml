@@ -1,0 +1,69 @@
+﻿@model PMApp.Models.Vehicle
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>License plate: @Model.License_plate</h1>
+
+<div>
+    <h4>Vehicle details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.License_plate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.License_plate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Make)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Make)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.stall_number)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.stall_number)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Tenant.First_name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Tenant.First_name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Tenant.Last_name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Tenant.Last_name)
+        </dd>
+    </dl>
+</div>
+<div>
+    
+    <p>
+        <input type="button" class="button" value="BACK TO LIST"
+               onclick="location.href='@Url.Action("Index", "VehiclesReport")'" />
+    </p>
+</div>

@@ -1,0 +1,88 @@
+﻿@model PMApp.Models.Move_out
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xxjapp/xdialog@3/xdialog.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/xxjapp/xdialog@3/xdialog.min.js"></script>
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                xdialog.alert("@ViewBag.Message");
+            };
+    </script>
+}
+
+
+<div class="reportHeader">
+    <h1>
+        <img src="~/img/moveout.jpg" alt="Repair Icon" width="55" height="60" />
+        Move out a Tenant
+    </h1>
+</div>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Carpet" class="control-label"></label>
+                <input asp-for="Carpet" class="form-control" />
+                <span asp-validation-for="Carpet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Appliances" class="control-label"></label>
+                <input asp-for="Appliances" class="form-control" />
+                <span asp-validation-for="Appliances" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Walls" class="control-label"></label>
+                <input asp-for="Walls" class="form-control" />
+                <span asp-validation-for="Walls" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cleaning_fee" class="control-label"></label>
+                <input asp-for="Cleaning_fee" class="form-control" />
+                <span asp-validation-for="Cleaning_fee" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Damage_fee" class="control-label"></label>
+                <input asp-for="Damage_fee" class="form-control" />
+                <span asp-validation-for="Damage_fee" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="fees_paid" class="control-label"></label>
+                <input asp-for="fees_paid" class="form-control" />
+                <span asp-validation-for="fees_paid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TenantTID" class="control-label"></label>
+                <select asp-for="TenantTID" class="form-control" asp-items="ViewBag.TenantTID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitUID" class="control-label"></label>
+                <select asp-for="UnitUID" class="form-control" asp-items="ViewBag.UnitUID"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="backToList" asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
