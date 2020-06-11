@@ -13,13 +13,16 @@ namespace PMApp.Models
         public int TID { get; set; }
 
         [Required]
+        [MaxLength(50)]
         [Display(Name = "Last name")]
         public string Last_name { get; set; }
 
         [Required]
+        [MaxLength(50)]
         [Display(Name = "First name")]
         public string First_name { get; set; }
 
+        [MaxLength(50)]
         public string Employer { get; set; }
 
         public int? Salary { get; set; }
@@ -36,10 +39,14 @@ namespace PMApp.Models
 
         public int? ReservedUnit { get; set; }
 
+        [MaxLength(20)]
         public string Phone { get; set; }
 
+        [MaxLength(50)]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email {get; set; }
 
+        [MaxLength(100)]
         public string Pets { get; set; }
 
         public string Current { get; set; }

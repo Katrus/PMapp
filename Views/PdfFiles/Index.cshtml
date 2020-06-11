@@ -1,0 +1,36 @@
+﻿@model IEnumerable<PMApp.Models.PdfFile>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h5>Tenant Documents</h5>
+
+<p>
+    <input type="button" class="button" value="TO TENANTS"
+           onclick="location.href='@Url.Action("Index", "Tenants")'" />
+</p>
+
+<p></p>
+<h5>Upload</h5>
+<input type="image" class="Print" value="Upload" src="~/img/pdf.jpg"
+       onclick="location.href='@Url.Action("Create", "PdfFiles", new { TID = ViewBag.Tenant })'" />
+<p></p>
+
+
+<table class="table">
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <p>@Html.ActionLink(item.FileName, "GetPdf", "PdfFiles", new { fileName = item.FileName }, null)</p>
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>

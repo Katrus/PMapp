@@ -67,11 +67,12 @@ namespace PMApp.Controllers
                                select m;
 
                 StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.AppendLine("Id,Property,Units");
+                stringBuilder.AppendLine("Id,Property,Units,Street,City,State,Zip Code,Tax Parcel");
 
                 foreach (var building in buildings)
                 {
-                    stringBuilder.AppendLine($"{building.BuildingId},{ building.Org_name},{ building.Unit_Count}");
+                    stringBuilder.AppendLine($"{building.BuildingId},{ building.Org_name},{ building.Unit_Count}," +
+                        $"{ building.Street},{ building.City},{ building.State},{ building.Zip_code},{ building.TPID}");
                 }
 
                 return File(Encoding.UTF8.GetBytes

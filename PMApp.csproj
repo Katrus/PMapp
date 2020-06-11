@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <Folder Include="ViewComponents\" />
+    <Folder Include="wwwroot\file\" />
   </ItemGroup>
 
 </Project>

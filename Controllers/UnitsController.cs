@@ -130,6 +130,9 @@ namespace PMApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("UID,Unit_Number,Rent_Amount,BuildingId,Square_footage,Bedroom,Bath,ReservedBy,Occupied,Ready_to_rent")] Unit unit)
         {
+            var building = from b in _context.Buildings where b.BuildingId == unit.BuildingId select b;
+            ViewData["BuildingId"] = new SelectList(building, "BuildingId", "Org_name");
+
             if (id != unit.UID)
             {
                 return NotFound();
@@ -155,7 +158,7 @@ namespace PMApp.Controllers
                 }
                 return RedirectToAction("Details", "Buildings", new { id = unit.BuildingId });
             }
-            ViewData["BuildingId"] = new SelectList(_context.Buildings, "BuildingId", "Org_name", unit.BuildingId);
+            
             return View(unit);
         }
 

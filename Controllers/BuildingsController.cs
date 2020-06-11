@@ -97,7 +97,6 @@ namespace PMApp.Controllers
             if (ModelState.IsValid)
             {
                 var unit = await _context.Unit.FindAsync(UnitUID);
-                unit.Occupied = "No";
                 unit.Ready_to_rent = "Yes";
 
                 _context.Update(unit);
@@ -112,7 +111,6 @@ namespace PMApp.Controllers
             if (ModelState.IsValid)
             {
                 var unit = await _context.Unit.FindAsync(UnitUID);
-                unit.Occupied = "No";
                 unit.Ready_to_rent = "No";
 
                 _context.Update(unit);

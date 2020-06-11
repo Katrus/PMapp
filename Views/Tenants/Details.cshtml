@@ -17,19 +17,17 @@
     </div>
 
     <div>
-
-        <div>
-            <h5>Upload background check</h5>
-            <form asp-controller="Tenants" asp-action="UploadFile" enctype="multipart/form-data" method="post">
-                <input type="file" name="file" value=""/>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-
-
         <p>
             <input type="button" class="button" value="TO TENANTS"
                    onclick="location.href='@Url.Action("Index", "Tenants")'" />
+        </p>
+    </div>
+
+    <div>
+
+        <p>
+            <input type="image" class="Print" value="Upload" src="~/img/pdf.jpg"
+                   onclick="location.href='@Url.Action("Index", "PdfFiles", new { id = Model.TID })'" />
         </p>
 
         <hr />

@@ -98,8 +98,8 @@
 </div>
 
 <div>
-    <input type="button" class="button" value="Back to List"
-           onclick="location.href='@Url.Action("Index")'" />
+    <input type="button" class="button" value="TO TENANT"
+           onclick="location.href='@Url.Action("Details", "Tenants", new { id = Model.TID })'" />
 </div>
 
 @section Scripts {

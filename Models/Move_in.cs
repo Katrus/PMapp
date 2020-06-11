@@ -19,10 +19,13 @@ namespace PMApp.Models
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
+        [MaxLength(100)]
         public string Carpet { get; set; }
 
+        [MaxLength(100)]
         public string Appliances { get; set; }
 
+        [MaxLength(100)]
         public string Walls { get; set; }
 
         [Display(Name = "Refundable deposit")]

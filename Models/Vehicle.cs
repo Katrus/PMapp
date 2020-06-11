@@ -14,12 +14,16 @@ namespace PMApp.Models
         [Display(Name = "License plate")]
         public string License_plate { get; set; }
 
+        [MaxLength(30)]
         public string Model { get; set; }
 
+        [MaxLength(50)]
         public string Make { get; set; }
 
+        [MaxLength(4)]
         public string Year { get; set; }
 
+        [MaxLength(30)]
         public string Color { get; set; }
 
         [Display(Name = "Parking stall")]

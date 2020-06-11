@@ -6,8 +6,8 @@
 }
 
 <div class="reportHeader">
-   <img src="~/img/report1.png" alt="Report Icon" width="55" height="60" />
-   <h1>All Tenants Report</h1>
+    <img src="~/img/report1.png" alt="Report Icon" width="55" height="60" />
+    <h1>Tenants Report</h1>
 </div>
 
 <p></p>
@@ -19,6 +19,8 @@
 </p>
 
 <p></p>
+<input type="image" class="Print" value="Print" src="~/img/print.png"
+       onclick="location.href='@Url.Action("PrintTenants", "Tenants")'" />
 <p></p>
 
 <form asp-controller="TenantsReport" asp-action="Index" method="get">
@@ -58,30 +60,30 @@
     <tbody>
         @foreach (var item in Model.OrderBy(item => item.Property))
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Last_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.First_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lease_start_date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lease_end_date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Property)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Unit)
-            </td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Last_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.First_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lease_start_date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lease_end_date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Property)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Unit)
+                </td>
 
-            <td>
-                <a class="Details" asp-action="Details" asp-route-id="@item.TID">Details</a> 
-            </td>
-        </tr>
+                <td>
+                    <a class="Details" asp-action="Details" asp-route-id="@item.TID">Details</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

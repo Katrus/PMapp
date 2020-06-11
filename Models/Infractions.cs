@@ -21,8 +21,10 @@ namespace PMApp.Models
         [DataType(DataType.Date)]
         public Nullable<DateTime> Day_closed { get; set; }
 
+        [MaxLength(200)]
         public string Description { get; set; }
 
+        [MaxLength(200)]
         public string Resolution { get; set; }
 
         public int TenantTID { get; set; }

@@ -11,6 +11,7 @@ namespace PMApp.Models
         [Key]
         public int checklistId { get; set; }
 
+        [MaxLength(70)]
         public string Reminder { get; set; }
 
         [DataType(DataType.Date)]

@@ -43,5 +43,7 @@ namespace PMApp.Data
         public DbSet<PMApp.Models.Infractions> Infractions { get; set; }
 
         public DbSet<PMApp.Models.Checklist> Checklist { get; set; }
+
+        public DbSet<PMApp.Models.PdfFile> PdfFile { get; set; }
     }
 }
