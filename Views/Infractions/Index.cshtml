@@ -51,11 +51,11 @@
                 @Html.DisplayFor(modelItem => item.Resolution)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Tenant.First_name)
+                @Html.DisplayFor(modelItem => item.Tenant.Last_name)
             </td>
             <td>
-                <a class="Edit" asp-action="Edit" asp-route-id="@item.IID">Edit</a> |
-                <a class="Details" asp-action="Details" asp-route-id="@item.IID">Details</a> |
+                <a class="Edit" asp-action="Edit" asp-route-id="@item.IID">Edit</a> 
+                <a class="Details" asp-action="Details" asp-route-id="@item.IID">Details</a> 
                 <a class="Delete" asp-action="Delete" asp-route-id="@item.IID">Delete</a>
             </td>
         </tr>

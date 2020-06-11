@@ -282,6 +282,7 @@ namespace PMApp.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Company_name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Contact_name")
@@ -360,13 +361,13 @@ namespace PMApp.Data.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<float>("Nonrefundable_deposit")
+                    b.Property<float?>("Nonrefundable_deposit")
                         .HasColumnType("real");
 
-                    b.Property<float>("Pet_deposit")
+                    b.Property<float?>("Pet_deposit")
                         .HasColumnType("real");
 
-                    b.Property<float>("Refundable_deposit")
+                    b.Property<float?>("Refundable_deposit")
                         .HasColumnType("real");
 
                     b.Property<int>("TenantTID")
@@ -400,10 +401,10 @@ namespace PMApp.Data.Migrations
                     b.Property<string>("Carpet")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Cleaning_fee")
+                    b.Property<float?>("Cleaning_fee")
                         .HasColumnType("real");
 
-                    b.Property<float>("Damage_fee")
+                    b.Property<float?>("Damage_fee")
                         .HasColumnType("real");
 
                     b.Property<DateTime>("Date")
@@ -418,7 +419,7 @@ namespace PMApp.Data.Migrations
                     b.Property<string>("Walls")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("fees_paid")
+                    b.Property<float?>("fees_paid")
                         .HasColumnType("real");
 
                     b.HasKey("MOID");
@@ -437,17 +438,17 @@ namespace PMApp.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<float>("Amount_paid")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Balance")
+                        .HasColumnType("real");
+
                     b.Property<DateTime>("Date_due")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("Date_paid")
                         .HasColumnType("datetime2");
-
-                    b.Property<float>("Parking_fee")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Pet_fee")
-                        .HasColumnType("real");
 
                     b.Property<float>("Rent_amount")
                         .HasColumnType("real");
@@ -479,6 +480,9 @@ namespace PMApp.Data.Migrations
 
                     b.Property<float>("Cost")
                         .HasColumnType("real");
+
+                    b.Property<DateTime?>("Date_due")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("Ticket_closed")
                         .HasColumnType("datetime2");
@@ -569,6 +573,9 @@ namespace PMApp.Data.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ReservedUnit")
+                        .HasColumnType("int");
+
                     b.Property<int?>("Salary")
                         .HasColumnType("int");
 
@@ -586,6 +593,12 @@ namespace PMApp.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<float?>("Bath")
+                        .HasColumnType("real");
+
+                    b.Property<int?>("Bedroom")
+                        .HasColumnType("int");
+
                     b.Property<long>("BuildingId")
                         .HasColumnType("bigint");
 
@@ -597,6 +610,9 @@ namespace PMApp.Data.Migrations
 
                     b.Property<float>("Rent_Amount")
                         .HasColumnType("real");
+
+                    b.Property<int?>("ReservedBy")
+                        .HasColumnType("int");
 
                     b.Property<int?>("Square_footage")
                         .HasColumnType("int");
@@ -636,7 +652,7 @@ namespace PMApp.Data.Migrations
                     b.Property<string>("Year")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("stall_number")
+                    b.Property<int?>("stall_number")
                         .HasColumnType("int");
 
                     b.HasKey("VID");

@@ -78,9 +78,10 @@ namespace PMApp.Controllers
 
             if (ModelState.IsValid)
             {
+                rent.Amount_paid = 0;
                 _context.Add(rent);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Tenants", new { id = rent.TenantTID });
             }
           
             return View(rent);
@@ -99,8 +100,13 @@ namespace PMApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["TenantTID"] = new SelectList(_context.Tenant, "TID", "First_name", rent.TenantTID);
-            ViewData["UnitUID"] = new SelectList(_context.Unit, "UID", "UID", rent.UnitUID);
+
+            var tenants = from t in _context.Tenant where t.TID == rent.TenantTID select t;
+            var unit = from u in _context.Unit where u.UID == rent.UnitUID select u;
+
+            ViewData["TenantTID"] = new SelectList(tenants, "TID", "Last_name");
+            ViewData["UnitUID"] = new SelectList(unit, "UID", "Unit_Number");
+          
             return View(rent);
         }
 
@@ -109,12 +115,18 @@ namespace PMApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RID,Date_due,Date_paid,Rent_amount,Pet_fee,Parking_fee,TenantTID,UnitUID")] Rent rent)
+        public async Task<IActionResult> Edit(int id, [Bind("RID,Date_due,Date_paid,Rent_amount,Amount_paid,Pet_fee,Parking_fee,TenantTID,UnitUID")] Rent rent)
         {
             if (id != rent.RID)
             {
                 return NotFound();
             }
+
+            var tenants = from t in _context.Tenant where t.TID == rent.TenantTID select t;
+            var unit = from u in _context.Unit where u.UID == rent.UnitUID select u;
+
+            ViewData["TenantTID"] = new SelectList(tenants, "TID", "Last_name");
+            ViewData["UnitUID"] = new SelectList(unit, "UID", "Unit_Number");
 
             if (ModelState.IsValid)
             {
@@ -134,10 +146,9 @@ namespace PMApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Tenants", new { id = rent.TenantTID });
             }
-            ViewData["TenantTID"] = new SelectList(_context.Tenant, "TID", "First_name", rent.TenantTID);
-            ViewData["UnitUID"] = new SelectList(_context.Unit, "UID", "UID", rent.UnitUID);
+
             return View(rent);
         }
 
@@ -169,7 +180,7 @@ namespace PMApp.Controllers
             var rent = await _context.Rent.FindAsync(id);
             _context.Rent.Remove(rent);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Tenants", new { id = rent.TenantTID });
         }
 
         private bool RentExists(int id)

@@ -22,7 +22,7 @@ namespace PMApp.ViewModels
         public string Color { get; set; }
 
         [Display(Name = "Parking stall")]
-        public int stall_number { get; set; }
+        public int? stall_number { get; set; }
 
         [Display(Name = "Last name")]
         public string Last_name { get; set; }

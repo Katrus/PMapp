@@ -65,7 +65,7 @@ namespace PMApp.Controllers
             {
                 _context.Add(vehicle);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Tenants", new { id = vehicle.TenantTID });
             }
             ViewData["TenantTID"] = new SelectList(_context.Tenant, "TID", "Last_name", vehicle.TenantTID);
             return View(vehicle);
@@ -121,7 +121,7 @@ namespace PMApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Tenants", new { id = vehicle.TenantTID });
             }
             ViewData["TenantTID"] = new SelectList(_context.Tenant, "TID", "Last_name", vehicle.TenantTID);
             return View(vehicle);
@@ -154,7 +154,7 @@ namespace PMApp.Controllers
             var vehicle = await _context.Vehicle.FindAsync(id);
             _context.Vehicle.Remove(vehicle);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Tenants", new { id = vehicle.TenantTID });
         }
 
         private bool VehicleExists(int id)

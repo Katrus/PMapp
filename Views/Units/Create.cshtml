@@ -40,6 +40,16 @@
                 <span asp-validation-for="Rent_Amount" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Bedroom" class="control-label"></label>
+                <input asp-for="Bedroom" class="form-control" />
+                <span asp-validation-for="Bedroom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bath" class="control-label"></label>
+                <input asp-for="Bath" class="form-control" />
+                <span asp-validation-for="Bath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="BuildingId" class="control-label"></label>
                 <select asp-for="BuildingId" class="form-control" asp-items="ViewBag.BuildingId"></select>
             </div>
@@ -57,7 +67,7 @@
 
 <div>
     <p>
-        <input type="button" class="button" value="BACK TO PROPERTIES"
+        <input type="button" class="button" value="BACK TO PROPERTY"
                onclick="location.href='@Url.Action("Index", "Buildings")'" />
     </p>
 </div>

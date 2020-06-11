@@ -16,9 +16,14 @@
 </script>
 }
 
-<h1>Delete</h1>
+<div class="reportHeader">
+    <h3>
+        <img src="~/img/grandmother.jpg" alt="Repair Icon" width="55" height="60" />
+        Are you sure you want to delete @Model.Last_name @Model.First_name
+    </h3>
+</div>
 
-<h3>Are you sure you want to delete @Model.Last_name @Model.First_name?</h3>
+
 <div>
     <hr />
     <dl class="row">
@@ -81,6 +86,7 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="TID" />
         <input type="submit" value="Delete" class="btn btn-danger" />
-        <a class="backToList" asp-action="Index">Back to List</a>
+        <input type="button" class="button" value="Back to List"
+               onclick="location.href='@Url.Action("Index")'" />
     </form>
 </div>

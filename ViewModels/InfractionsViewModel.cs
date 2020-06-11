@@ -10,9 +10,13 @@ namespace PMApp.ViewModels
     {
         public int IID { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         [Display(Name = "Opened")]
         public DateTime Day_opened { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         [Display(Name = "Closed")]
         public Nullable<DateTime> Day_closed { get; set; }
 

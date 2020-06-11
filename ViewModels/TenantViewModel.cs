@@ -18,11 +18,17 @@ namespace PMApp.ViewModels
 
             public string Employer { get; set; }
 
+            public string Current { get; set; }
+
             public int? Salary { get; set; }
 
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            [DataType(DataType.Date)]
             [Display(Name = "Lease start date")]
             public DateTime Lease_start_date { get; set; }
 
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            [DataType(DataType.Date)]
             [Display(Name = "Lease end date")]
             public DateTime Lease_end_date { get; set; }
 

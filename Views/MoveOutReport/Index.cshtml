@@ -1,14 +1,31 @@
-﻿@model IEnumerable<PMApp.Models.Move_out>
+﻿@model IEnumerable<PMApp.ViewModels.MoveOutViewModel>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="reportHeader">
+    <img src="~/img/report1.png" alt="Report Icon" width="55" height="60" />
+    <h1>Move Outs Report</h1>
+</div>
+
+<p></p>
+<p></p>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <input type="button" class="button" value="BACK TO REPORTS"
+           onclick="location.href='@Url.Action("Index", "Checklists")'" />
 </p>
+
+<p></p>
+<p></p>
+
+<form asp-controller="MoveOutReport" asp-action="Index" method="get">
+    <p>
+        SEARCH: <input type="text" name="SearchString">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -34,16 +51,19 @@
                 @Html.DisplayNameFor(model => model.fees_paid)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Tenant)
+                @Html.DisplayNameFor(model => model.Last_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Property)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Unit)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model.OrderByDescending(item => item.Date))
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
@@ -67,17 +87,15 @@
                 @Html.DisplayFor(modelItem => item.fees_paid)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Tenant.First_name)
+                @Html.DisplayFor(modelItem => item.Last_name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Unit.UID)
+                @Html.DisplayFor(modelItem => item.Property)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.MOID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MOID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MOID">Delete</a>
+                @Html.DisplayFor(modelItem => item.Unit)
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>

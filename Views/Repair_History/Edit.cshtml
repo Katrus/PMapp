@@ -34,6 +34,11 @@
                 <span asp-validation-for="Ticket_opened" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Date_due" class="control-label"></label>
+                <input asp-for="Date_due" class="form-control" />
+                <span asp-validation-for="Date_due" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Ticket_closed" class="control-label"></label>
                 <input asp-for="Ticket_closed" class="form-control" />
                 <span asp-validation-for="Ticket_closed" class="text-danger"></span>
@@ -49,9 +54,9 @@
                 <span asp-validation-for="Work_ended" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Unit.Unit_Number" class="control-label"></label>
-                <select asp-for="Unit.Unit_Number" class="form-control" asp-items="ViewBag.UnitUID"></select>
-                <span asp-validation-for="Unit.Unit_Number" class="text-danger"></span>
+                <label asp-for="Unit" class="control-label"></label>
+                <select asp-for="UnitUID" class="form-control" asp-items="ViewBag.UnitUID"></select>
+                <span asp-validation-for="UnitUID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ContractorCID" class="control-label"></label>
@@ -66,7 +71,9 @@
 </div>
 
 <div>
-    <a class="backToList" asp-action="Index">Back to List</a>
+
+    <input type="button" class="button" value="To Repairs"
+           onclick="location.href='@Url.Action("Index", "Repair_History")'" />
 </div>
 
 @section Scripts {

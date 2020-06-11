@@ -75,10 +75,10 @@
                     @Html.DisplayFor(modelItem => item.fees_paid)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Tenant.First_name)
+                    @Html.DisplayFor(modelItem => item.Tenant.Last_name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Unit.UID)
+                    @Html.DisplayFor(modelItem => item.Unit.Unit_Number)
                 </td>
                 <td>
                     <a class="Edit" asp-action="Edit" asp-route-id="@item.MOID">Edit</a>

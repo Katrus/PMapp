@@ -14,51 +14,46 @@
 <div>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Date_due)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Date_due)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Date_paid)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Date_paid)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Rent_amount)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Rent_amount)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Pet_fee)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Amount_paid)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Pet_fee)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Amount_paid)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Parking_fee)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Parking_fee)
-        </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Tenant)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Tenant.First_name)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Unit)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Unit.UID)
         </dd>
     </dl>
 </div>
 <div>
     <a class="Edit" asp-action="Edit" asp-route-id="@Model.RID">Edit</a> |
-    <a class="backToList" asp-action="Index">Back to List</a>
+    <input type="button" class="button" value="To Tenants"
+           onclick="location.href='@Url.Action("Index", "Tenants")'" />
 </div>

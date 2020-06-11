@@ -60,7 +60,8 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="VID" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a class="backToList" asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger" /> 
+        <input type="button" class="button" value="To Tenants"
+               onclick="location.href='@Url.Action("Index", "Tenants")'" />
     </form>
 </div>

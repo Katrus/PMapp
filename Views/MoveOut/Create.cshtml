@@ -65,11 +65,11 @@
                 <span asp-validation-for="fees_paid" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TenantTID" class="control-label"></label>
+                <label asp-for="Tenant" class="control-label"></label>
                 <select asp-for="TenantTID" class="form-control" asp-items="ViewBag.TenantTID"></select>
             </div>
             <div class="form-group">
-                <label asp-for="UnitUID" class="control-label"></label>
+                <label asp-for="Unit" class="control-label"></label>
                 <select asp-for="UnitUID" class="form-control" asp-items="ViewBag.UnitUID"></select>
             </div>
             <div class="form-group">
@@ -80,7 +80,9 @@
 </div>
 
 <div>
-    <a class="backToList" asp-action="Index">Back to List</a>
+
+    <input type="button" class="button" value="TO PROPERTIES"
+           onclick="location.href='@Url.Action("Index", "Buildings")'" />
 </div>
 
 @section Scripts {

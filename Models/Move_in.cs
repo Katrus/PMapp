@@ -26,13 +26,13 @@ namespace PMApp.Models
         public string Walls { get; set; }
 
         [Display(Name = "Refundable deposit")]
-        public float Refundable_deposit { get; set; }
+        public float? Refundable_deposit { get; set; }
 
         [Display(Name = "Non-refundable deposit")]
-        public float Nonrefundable_deposit { get; set; }
+        public float? Nonrefundable_deposit { get; set; }
 
         [Display(Name = "Pet deposit")]
-        public float Pet_deposit { get; set; }
+        public float? Pet_deposit { get; set; }
 
         [Display(Name ="Tenant")]
         public int TenantTID { get; set; }

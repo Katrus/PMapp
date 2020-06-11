@@ -1,0 +1,71 @@
+﻿@model IEnumerable<PMApp.Models.Unit>
+
+@{
+    ViewData["Title"] = "selectUnit";
+}
+
+    <div class="reportHeader">
+        <h3>
+            <img src="~/img/door.jpg" alt="Door Icon" width="55" height="60" />
+            Select Unit in @ViewBag.Bname
+        </h3>
+    </div>
+
+    <div>
+        <input type="button" class="button" value="TO TENANTS"
+               onclick="location.href='@Url.Action("Index", "Tenants")'" />
+    </div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Unit_Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rent_Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Square_footage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bedroom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Building)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.OrderBy(item => item.Unit_Number)) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Unit_Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rent_Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Square_footage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bedroom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bath)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Building.Org_name)
+            </td>
+            <td>
+                <input type="button" class="Select" value="Select"
+                       onclick="location.href='@Url.Action("reserveUnit", "Tenants", new { UID = item.UID, TID = ViewBag.Tenant })'" />
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

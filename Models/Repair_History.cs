@@ -36,6 +36,11 @@ namespace PMApp.Models
         [DataType(DataType.Date)]
         public Nullable<DateTime> Work_ended { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Due")]
+        [DataType(DataType.Date)]
+        public Nullable<DateTime> Date_due { get; set; }
+
         [Display(Name ="Unit")]
         public int UnitUID { get; set; }
 

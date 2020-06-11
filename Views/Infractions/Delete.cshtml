@@ -42,13 +42,14 @@
             @Html.DisplayNameFor(model => model.Tenant)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Tenant.First_name)
+            @Html.DisplayFor(model => model.Tenant.Last_name)
         </dd class>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="IID" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a class="backToList" asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger" /> 
+        <input type="button" class="button" value="To Tenants"
+               onclick="location.href='@Url.Action("Index", "Tenants")'" />
     </form>
 </div>

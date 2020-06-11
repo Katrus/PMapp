@@ -17,48 +17,60 @@
     <div>
 
         <p>
-            <input type="button" class="button" value="BACK TO PROPERTIES"
-                   onclick="location.href='@Url.Action("Index", "Buildings")'" />
+            <input type="button" class="button" value="BACK TO PROPERTY"
+                   onclick="location.href='@Url.Action("Details", "Buildings", new { id = Model.BuildingId })'" />
         </p>
     </div>
 
 <div>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Unit_Number)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Unit_Number)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Rent_Amount)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Rent_Amount)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Bedroom)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Bedroom)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Bath)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Bath)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Square_footage)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Square_footage)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Occupied)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Occupied)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Ready_to_rent)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Ready_to_rent)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Building)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Building.Org_name)
         </dd>
     </dl>
@@ -80,6 +92,7 @@
             <tr>
                 <th>@Html.DisplayNameFor(x => repairs.Work_description)</th>
                 <th>@Html.DisplayNameFor(x => repairs.Contractor)</th>
+                 <th>@Html.DisplayNameFor(x => repairs.Cost)</th>
                 <th>@Html.DisplayNameFor(x => repairs.Ticket_opened)</th>
                 <th>@Html.DisplayNameFor(x => repairs.Ticket_closed)</th>
                 <th>@Html.DisplayNameFor(x => repairs.Work_started)</th>
@@ -89,36 +102,39 @@
         <tbody>
             @foreach (var item in Model.Repair_Histories.OrderBy(item => item.Ticket_opened))
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Work_description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Contractor.Company_name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Ticket_opened)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Ticket_closed)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Work_started)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Work_ended)
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Work_description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contractor.Company_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ticket_opened)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ticket_closed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Work_started)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Work_ended)
+                </td>
+            </tr>
             }
         </tbody>
     </table>
 </div>
 
 <div class="MoveInsOuts">
-    <input type="button" class="moveIn" value=" Show Move Ins"
+    <input type="button" class="moveIns" value=" Show Move Ins"
            onclick="showMoveIns()" />
 
-    <input type="button" class="moveOut" value=" Show Move Outs"
+    <input type="button" class="moveIns" value=" Show Move Outs"
            onclick="showMoveOuts()" />
 </div>
 
@@ -130,7 +146,7 @@
         </h5>
     </div>
 
-    <input type="button" class="moveIn" value=" Hide Move Ins"
+    <input type="button" class="moveIns" value=" Hide Move Ins"
            onclick="hideMoveIns()" />
 
     <hr />
@@ -174,7 +190,7 @@
         </h5>
     </div>
 
-    <input type="button" class="moveIn" value=" Hide Move Outs"
+    <input type="button" class="moveIns" value=" Hide Move Outs"
            onclick="hideMoveOuts()" />
 
     <hr />

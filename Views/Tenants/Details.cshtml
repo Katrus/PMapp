@@ -12,129 +12,172 @@
     <div class="reportHeader">
         <h3>
             <img src="~/img/grandmother.jpg" alt="Repair Icon" width="55" height="60" />
-            Tenant @Model.Last_name @Model.First_name details
+            Tenant @Model.Last_name @Model.First_name 
         </h3>
     </div>
 
-<div>
-    <p>
-        <input type="button" class="button" value="TO TENANTS"
-               onclick="location.href='@Url.Action("Index", "Tenants")'" />
-    </p>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Last_name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Last_name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.First_name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.First_name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employer)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employer)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Salary)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Salary)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Lease_start_date)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Lease_start_date)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Lease_end_date)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Lease_end_date)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Pets)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Pets)
-        </dd>
-    </dl>
-</div>
+    <div>
 
-<div style="margin-top: 40px;">
+        <div>
+            <h5>Upload background check</h5>
+            <form asp-controller="Tenants" asp-action="UploadFile" enctype="multipart/form-data" method="post">
+                <input type="file" name="file" value=""/>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
 
-    <div class="reportHeader">
-        <h5>
-            <img src="~/img/car.jpg" alt="Repair Icon" width="55" height="60" />
-            Vehicles
-        </h5>
+
+        <p>
+            <input type="button" class="button" value="TO TENANTS"
+                   onclick="location.href='@Url.Action("Index", "Tenants")'" />
+        </p>
+
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Last_name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Last_name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.First_name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.First_name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Employer)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Employer)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Salary)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Salary)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Lease_start_date)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Lease_start_date)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Lease_end_date)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Lease_end_date)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Phone)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Pets)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Pets)
+            </dd>
+        </dl>
     </div>
 
-    <hr />
-    <a class="Create" href="@Url.Action("Create", "Vehicles", new { TID = Model.TID })">Add Vehicle</a>
+    <div style="margin-top: 20px; margin-bottom: 20px;">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>@Html.DisplayNameFor(x => vehicleModel.License_plate)</th>
-                <th>@Html.DisplayNameFor(x => vehicleModel.Make)</th>
-                <th>@Html.DisplayNameFor(x => vehicleModel.Model)</th>
-                <th>@Html.DisplayNameFor(x => vehicleModel.Year)</th>
-                <th>@Html.DisplayNameFor(x => vehicleModel.Color)</th>
-                <th>@Html.DisplayNameFor(x => vehicleModel.stall_number)</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Vehicles)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.License_plate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Make)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Model)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Year)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Color)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.stall_number)
-                    </td>
-                    <td>
-                        <a class="Edit" asp-action="Edit" asp-route-id="@item.VID" asp-controller="Vehicles">Edit</a>
-                        <a class="Delete" asp-action="Delete" asp-route-id="@item.VID" asp-controller="Vehicles">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+        @if (Model.Current.Equals("New") && Model.ReservedUnit != null)
+        {
+            <h5>Reserved Unit: @ViewBag.UnitNumber @ViewBag.Property</h5>
+            <input type="button" class="Release" value="Release Unit"
+                   onclick="location.href='@Url.Action("releaseUnit", "Tenants", new { TID = Model.TID, UID = Model.ReservedUnit})'" />
+        }
+        else if (Model.Current.Equals("New"))
+        {
+            <input type="button" class="Reserve" value="Reserve Unit"
+                   onclick="location.href='@Url.Action("selectBuilding", "Tenants", new { TID = Model.TID})'" />
+        }
+        else if (Model.Current.Equals("Yes"))
+        {
+            <h5>Unit: @ViewBag.UnitNumber @ViewBag.Property</h5>
+        }
+
+        @if (Model.Current.Equals("Yes") || Model.Current.Equals("New"))
+        {
+            <a class="Edit" asp-action="Edit" asp-route-id="@Model.TID">Edit Tenant</a>
+        }
+        <a class="Delete" asp-action="Delete" asp-route-id="@Model.TID">Delete Tenant</a>
+    </div>
+ 
+
+    <div style="margin-top: 40px;">
+
+        <div class="reportHeader">
+            <h5>
+                <img src="~/img/car.jpg" alt="Repair Icon" width="55" height="60" />
+                Vehicles
+            </h5>
+        </div>
+
+        <hr />
+        @if (Model.Current.Equals("Yes") || Model.Current.Equals("New"))
+        {
+            <a class="Create" href="@Url.Action("Create", "Vehicles", new { TID = Model.TID })">Add Vehicle</a>
+        }
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(x => vehicleModel.License_plate)</th>
+                        <th>@Html.DisplayNameFor(x => vehicleModel.Make)</th>
+                        <th>@Html.DisplayNameFor(x => vehicleModel.Model)</th>
+                        <th>@Html.DisplayNameFor(x => vehicleModel.Year)</th>
+                        <th>@Html.DisplayNameFor(x => vehicleModel.Color)</th>
+                        <th>@Html.DisplayNameFor(x => vehicleModel.stall_number)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Vehicles)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.License_plate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Make)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Model)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Year)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Color)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.stall_number)
+                            </td>
+                            <td>
+                                @if (Model.Current.Equals("Yes") || Model.Current.Equals("New"))
+                                {
+                                    <a class="Edit" asp-action="Edit" asp-route-id="@item.VID" asp-controller="Vehicles">Edit</a>
+                                    <a class="Delete" asp-action="Delete" asp-route-id="@item.VID" asp-controller="Vehicles">Delete</a>
+                                }
+                                </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
 <div style="margin-top: 40px;">
     <div class="reportHeader">
@@ -152,35 +195,31 @@
                 <th>@Html.DisplayNameFor(x => rentModel.Date_due)</th>
                 <th>@Html.DisplayNameFor(x => rentModel.Date_paid)</th>
                 <th>@Html.DisplayNameFor(x => rentModel.Rent_amount)</th>
-                <th>@Html.DisplayNameFor(x => rentModel.Pet_fee)</th>
-                <th>@Html.DisplayNameFor(x => rentModel.Parking_fee)</th>
+                <th>@Html.DisplayNameFor(x => rentModel.Amount_paid)</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.Rents.OrderByDescending(item => item.Date_due))
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Date_due)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Date_paid)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Rent_amount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Pet_fee)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Parking_fee)
-                    </td>
-                    <td>
-                        <a class="Edit" asp-action="Edit" asp-route-id="@item.RID" asp-controller="Rents">Edit</a>
-                        <a class="Delete" asp-action="Delete" asp-route-id="@item.RID" asp-controller="Rents">Delete</a>
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_due)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_paid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rent_amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount_paid)
+                </td>
+                <td>
+                    <a class="Edit" asp-action="Edit" asp-route-id="@item.RID" asp-controller="Rents">Pay</a>
+                    <a class="Delete" asp-action="Delete" asp-route-id="@item.RID" asp-controller="Rents">Delete</a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
@@ -224,7 +263,7 @@
                         @Html.DisplayFor(modelItem => item.Resolution)
                     </td>
                     <td>
-                        <a class="Edit" asp-action="Edit" asp-route-id="@item.IID" asp-controller="Infractions">Edit</a> |
+                        <a class="Edit" asp-action="Edit" asp-route-id="@item.IID" asp-controller="Infractions">Edit</a> 
                         <a class="Delete" asp-action="Delete" asp-route-id="@item.IID" asp-controller="Infractions">Delete</a>
                     </td>
                 </tr>
@@ -233,6 +272,4 @@
     </table>
 </div>
 
-<div style="margin-top: 20px;">
-    <a class="Edit" asp-action="Edit" asp-route-id="@Model.TID">Edit</a> 
-</div>
+

@@ -25,8 +25,8 @@
 
 
 <p>
-    <input type="button" class="button" value="BACK TO PROPERTIES"
-           onclick="location.href='@Url.Action("Index", "Buildings")'" />
+    <input type="button" class="button" value="BACK TO PROPERTY"
+           onclick="location.href='@Url.Action("Index", "Buildings", new { id = Model.BuildingId })'" />
 </p>
 
 <div>

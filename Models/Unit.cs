@@ -23,7 +23,13 @@ namespace PMApp.Models
         [Display(Name = "Sqft")]
         public int? Square_footage { get; set; }
 
+        public int? Bedroom { get; set; }
+
+        public float? Bath { get; set; }
+
         public string Occupied { get; set; }
+
+        public int? ReservedBy { get; set; }
 
         [Display(Name = "Available to rent")]
         public string Ready_to_rent { get; set; }

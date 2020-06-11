@@ -60,5 +60,6 @@
 </div>
 <div>
     <a class="Edit" asp-action="Edit" asp-route-id="@Model.VID">Edit</a> |
-    <a class="backToList" asp-action="Index">Back to List</a>
+    <input type="button" class="button" value="To Tenants"
+           onclick="location.href='@Url.Action("Index", "Tenants")'" />
 </div>

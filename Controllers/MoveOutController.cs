@@ -54,14 +54,8 @@ namespace PMApp.Controllers
                          where m.UID == UnitUID
                          select m;
 
-            var motenant = from u in mounit
-                           join mi in _context.Move_in
-                           on u.UID equals mi.UnitUID into temp
-                           from lj in temp.DefaultIfEmpty()
-                           join t in _context.Tenant
-                           on lj.TenantTID equals t.TID into temp2
-                           from lj2 in temp2.DefaultIfEmpty()
-                           select lj2;
+            var motenant = from t in _context.Tenant join m in _context.Move_in on t.TID equals m.TenantTID
+                           where m.UnitUID == UnitUID && t.Current.Equals("Yes") select t;
 
             ViewBag.TenantTID = new SelectList(motenant, "TID", "Last_name");
             ViewBag.UnitUID = new SelectList(mounit, "UID", "Unit_Number");
@@ -112,6 +106,7 @@ namespace PMApp.Controllers
 
                 var tenant = await _context.Tenant.FindAsync(move_out.TenantTID);
                 tenant.Current = "No";
+                tenant.ReservedUnit = null;
                 tenant.Lease_end_date = move_out.Date;
                 _context.Add(move_out);
                 _context.Update(tenant);
@@ -122,7 +117,7 @@ namespace PMApp.Controllers
 
                 _context.Update(unit);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Buildings", new { id = unit.BuildingId });
             }
            
             return View(move_out);
@@ -185,7 +180,9 @@ namespace PMApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+
+                var units = await _context.Unit.FindAsync(move_out.UnitUID);
+                return RedirectToAction("Details", "Buildings", new { id = units.BuildingId });
             }
             return View(move_out);
         }
@@ -239,11 +236,12 @@ namespace PMApp.Controllers
 
             var tenant = await _context.Tenant.FindAsync(move_out.TenantTID);
             tenant.Current = "Yes";
+            tenant.ReservedUnit = unit.UID;
             _context.Tenant.Update(tenant);
 
             _context.Move_out.Remove(move_out);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Buildings", new { id = unit.BuildingId });
         }
 
         private bool Move_outExists(int id)

@@ -33,9 +33,11 @@ namespace PMApp.Controllers
                                            Cost = m.Cost,
                                            Property = lj.Org_name,
                                            Ticket_opened = m.Ticket_opened,
+                                           Ticket_closed = m.Ticket_closed,
                                            Work_description = m.Work_description,
                                            Work_started = m.Work_started,
-                                           Work_ended = m.Work_ended
+                                           Work_ended = m.Work_ended,
+                                           Date_due = m.Date_due
 
                                        };
 
@@ -72,14 +74,10 @@ namespace PMApp.Controllers
         // GET: Repair_History/Create
         public IActionResult Create(long BuildingId)
         {
-            var building = from m in _context.Buildings
-                           where m.BuildingId == BuildingId
-                           join u in _context.Unit on m.BuildingId equals u.BuildingId into temp
-                           from lj in temp.DefaultIfEmpty()
-                           select new Unit {UID = lj.UID, Unit_Number = lj.Unit_Number };
+            var units = from u in _context.Unit where u.BuildingId == BuildingId select u;
 
             ViewData["ContractorCID"] = new SelectList(_context.Contractor, "CID", "Company_name");
-            ViewData["UnitUID"] = new SelectList(building, "UID", "Unit_Number");
+            ViewData["UnitUID"] = new SelectList(units, "UID", "Unit_Number");
             return View();
         }
 
@@ -88,16 +86,18 @@ namespace PMApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RHID,Cost,Work_description,Ticket_opened,Ticket_closed,Work_started,Work_ended,UnitUID,ContractorCID")] Repair_History repair_History)
+        public async Task<IActionResult> Create([Bind("RHID,Cost,Work_description,Ticket_opened,Date_due,Ticket_closed,Work_started,Work_ended,UnitUID,ContractorCID")] Repair_History repair_History)
         {
+            var units = from u in _context.Unit where u.UID == repair_History.UnitUID select u;
+            ViewData["UnitUID"] = new SelectList(units, "UID", "Unit_Number");
             if (ModelState.IsValid)
             {
+               
                 _context.Add(repair_History);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ContractorCID"] = new SelectList(_context.Contractor, "CID", "Company_name", repair_History.ContractorCID);
-            ViewData["UnitUID"] = new SelectList(_context.Unit, "UID", "Unit_Number", repair_History.UnitUID);
             return View(repair_History);
         }
 
@@ -114,8 +114,12 @@ namespace PMApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["ContractorCID"] = new SelectList(_context.Contractor, "CID", "Company_name", repair_History.ContractorCID);
-            ViewData["UnitUID"] = new SelectList(_context.Unit, "UID", "Unit_Number", repair_History.UnitUID);
+
+            var units = from u in _context.Unit where u.UID == repair_History.UnitUID select u;
+            var contractors = from c in _context.Contractor where c.CID == repair_History.ContractorCID select c;
+
+            ViewData["ContractorCID"] = new SelectList(contractors, "CID", "Company_name");
+            ViewData["UnitUID"] = new SelectList(units, "UID", "Unit_Number");
             return View(repair_History);
         }
 
@@ -124,12 +128,18 @@ namespace PMApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RHID,Cost,Work_description,Ticket_opened,Ticket_closed,Work_started,Work_ended,UnitUID,ContractorCID")] Repair_History repair_History)
+        public async Task<IActionResult> Edit(int id, [Bind("RHID,Cost,Work_description,Ticket_opened,Date_due,Ticket_closed,Work_started,Work_ended,UnitUID,ContractorCID")] Repair_History repair_History)
         {
             if (id != repair_History.RHID)
             {
                 return NotFound();
             }
+
+            var units = from u in _context.Unit where u.UID == repair_History.UnitUID select u;
+            var contractors = from c in _context.Contractor where c.CID == repair_History.ContractorCID select c;
+
+            ViewData["ContractorCID"] = new SelectList(contractors, "CID", "Company_name");
+            ViewData["UnitUID"] = new SelectList(units, "UID", "Unit_Number");
 
             if (ModelState.IsValid)
             {
@@ -151,8 +161,7 @@ namespace PMApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ContractorCID"] = new SelectList(_context.Contractor, "CID", "Company_name", repair_History.ContractorCID);
-            ViewData["UnitUID"] = new SelectList(_context.Unit, "UID", "Unit_Number", repair_History.UnitUID);
+            
             return View(repair_History);
         }
 

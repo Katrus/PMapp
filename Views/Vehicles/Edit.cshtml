@@ -60,7 +60,8 @@
 </div>
 
 <div>
-    <a class="backToList" asp-action="Index">Back to List</a>
+    <input type="button" class="button" value="To Tenants"
+           onclick="location.href='@Url.Action("Index", "Tenants")'" />
 </div>
 
 @section Scripts {

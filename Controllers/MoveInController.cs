@@ -93,6 +93,7 @@ namespace PMApp.Controllers
 
                 var tenant = await _context.Tenant.FindAsync(move_in.TenantTID);
                 tenant.Current = "Yes";
+                tenant.ReservedUnit = move_in.UnitUID;
                 tenant.Lease_start_date = move_in.Date;
                 _context.Update(tenant);
 
@@ -103,7 +104,7 @@ namespace PMApp.Controllers
                 _context.Update(unit);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Buildings", new { id = unit.BuildingId });
             }
 
             return View(move_in);
@@ -143,6 +144,7 @@ namespace PMApp.Controllers
         {
             var mitenant = from t in _context.Tenant where t.TID == move_in.TenantTID select t;
             var miunit = from u in _context.Unit where u.UID == move_in.UnitUID select u;
+            var unit = await _context.Unit.FindAsync(move_in.UnitUID);
 
             ViewData["TenantTID"] = new SelectList(mitenant, "TID", "Last_name");
             ViewData["UnitUID"] = new SelectList(miunit, "UID", "Unit_Number");
@@ -156,8 +158,8 @@ namespace PMApp.Controllers
             {
                 try
                 {
-                    var move_out = from m in _context.Move_out where m.TenantTID == move_in.TenantTID select m;
-                    if (move_out != null)
+                    var tenant = await _context.Tenant.FindAsync(move_in.TenantTID);
+                    if (tenant.Current.Equals("No"))
                     {
                         ViewBag.Message = "Unable to change move in date. Tenant moved out.";
                         return View(move_in);
@@ -167,7 +169,7 @@ namespace PMApp.Controllers
                         ViewBag.Message = "Unable to change move in to future date. Withdraw move in.";
                         return View(move_in);
                     }
-                    var tenant = await _context.Tenant.FindAsync(move_in.TenantTID);
+                    
                     tenant.Lease_start_date = move_in.Date;
 
                     _context.Update(tenant);
@@ -185,7 +187,7 @@ namespace PMApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Buildings", new { id = unit.BuildingId });
             }
 
             return View(move_in);
@@ -233,13 +235,14 @@ namespace PMApp.Controllers
             unit.Ready_to_rent = "No";
 
             var tenant = await _context.Tenant.FindAsync(move_in.TenantTID);
-            tenant.Current = "No";
+            tenant.Current = "New";
+            tenant.ReservedUnit = null;
             _context.Tenant.Update(tenant);
 
             _context.Unit.Update(unit);
             _context.Move_in.Remove(move_in);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Buildings", new { id = unit.BuildingId });
         }
 
         private bool Move_inExists(int id)
@@ -248,17 +251,8 @@ namespace PMApp.Controllers
         }
 
         public async Task<IActionResult> pickTenant(int UID)
-        {
-            var futureTenants = from t in _context.Tenant
-                                where t.Lease_start_date >= DateTime.Today
-                                select t;
-            var currentTenants = from mi in _context.Move_in
-                                 join t in _context.Tenant
-                                 on mi.TenantTID equals t.TID into temp
-                                 from lj in temp.DefaultIfEmpty()
-                                 select lj;
-
-            var motenant = futureTenants.Where(p => currentTenants.All(p2 => p2.TID != p.TID));
+        { 
+            var motenant = from t in _context.Tenant where t.Current.Equals("New") && t.ReservedUnit == null select t;
             var tenant = from m in motenant
                          select new TenantViewModel
                          {

@@ -1,14 +1,28 @@
-﻿@model IEnumerable<PMApp.Models.Rent>
+﻿@model IEnumerable<PMApp.ViewModels.RentViewModel>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="reportHeader">
+    <h1>
+        <img src="~/img/calculator.jpg" alt="Repair Icon" width="55" height="60" />
+        Rent Payments
+    </h1>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
+<p style="margin-top:30px; margin-bottom:30px;">
+    <input type="button" class="BatchReport" value="Make a batch invoice"
+           onclick="location.href='@Url.Action("Create", "Accounting")'" />
 </p>
+
+<form asp-controller="Accounting" asp-action="Index" method="get">
+    <p>
+        SEARCH: <input type="text" name="SearchString">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -22,50 +36,190 @@
                 @Html.DisplayNameFor(model => model.Rent_amount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Pet_fee)
+                @Html.DisplayNameFor(model => model.Amount_paid)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Parking_fee)
+                @Html.DisplayNameFor(model => model.Balance)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Tenant)
+                @Html.DisplayNameFor(model => model.Property)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Unit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Last_name)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date_due)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date_paid)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rent_amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pet_fee)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Parking_fee)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tenant.First_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Unit.UID)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.RID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.OrderByDescending(item => item.Balance).OrderBy(item => item.Date_due))
+        {
+
+            @if (item.Balance > 0 && item.Date_due < DateTime.Today)
+            {
+                <tr style="background-color:#ffc863">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date_due)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date_paid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rent_amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount_paid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Balance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Property)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Unit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Last_name)
+                    </td>
+                    <td>
+                        <a class="Edit" asp-action="Edit" asp-route-id="@item.RID">Pay</a>
+                        <a class="Delete" asp-action="Delete" asp-route-id="@item.RID">Delete</a>
+                    </td>
+                </tr>
+            }
+            else if (item.Balance > 0)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date_due)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date_paid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rent_amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount_paid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Balance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Property)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Unit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Last_name)
+                    </td>
+                    <td>
+                        <a class="Edit" asp-action="Edit" asp-route-id="@item.RID">Pay</a>
+                        <a class="Delete" asp-action="Delete" asp-route-id="@item.RID">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
     </tbody>
 </table>
+
+<div>
+    <h5>Paid Rent Invoices</h5>
+    <input type="button" class="moveIns" value="Hide"
+           onclick="hideInvoices()" />
+    <input type="button" class="moveIns" value="Show"
+           onclick="showInvoices()" />
+</div>
+
+<div id="paidInvoices" style="display:block">
+<table class="table">
+    <thead>
+        <tr>
+            <th class="thno">
+                @Html.DisplayNameFor(model => model.Date_due)
+            </th>
+            <th class="thno">
+                @Html.DisplayNameFor(model => model.Date_paid)
+            </th>
+            <th class="thno">
+                @Html.DisplayNameFor(model => model.Rent_amount)
+            </th>
+            <th class="thno">
+                @Html.DisplayNameFor(model => model.Amount_paid)
+            </th>
+            <th class="thno">
+                @Html.DisplayNameFor(model => model.Balance)
+            </th>
+            <th class="thno">
+                @Html.DisplayNameFor(model => model.Property)
+            </th>
+            <th class="thno">
+                @Html.DisplayNameFor(model => model.Unit)
+            </th>
+            <th class="thno">
+                @Html.DisplayNameFor(model => model.Last_name)
+            </th>
+            <th class="thno"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderByDescending(item => item.Balance).OrderBy(item => item.Date_due))
+        {
+
+            @if (item.Balance == 0)
+            {
+                <tr style="background-color:#dedede">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date_due)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date_paid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rent_amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount_paid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Balance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Property)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Unit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Last_name)
+                    </td>
+                    <td>
+                        <a class="Edit" asp-action="Edit" asp-route-id="@item.RID">Pay</a>
+                        <a class="Delete" asp-action="Delete" asp-route-id="@item.RID">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+
+</table>
+
+</div>
+
+<script>
+
+    function showInvoices() {
+        var showInvoices = document.getElementById('paidInvoices');
+        showInvoices.style.display = "block";
+    }
+
+    function hideInvoices() {
+        var hideInvoices = document.getElementById('paidInvoices');
+        hideInvoices.style.display = "none";
+    }
+
+</script>

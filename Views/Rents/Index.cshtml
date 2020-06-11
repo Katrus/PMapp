@@ -27,10 +27,7 @@
                 @Html.DisplayNameFor(model => model.Rent_amount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Pet_fee)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Parking_fee)
+                @Html.DisplayNameFor(model => model.Amount_paid)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Tenant)
@@ -54,20 +51,17 @@
                 @Html.DisplayFor(modelItem => item.Rent_amount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Pet_fee)
+                @Html.DisplayFor(modelItem => item.Amount_paid)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Parking_fee)
+                @Html.DisplayFor(modelItem => item.Tenant.Last_name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Tenant.First_name)
+                @Html.DisplayFor(modelItem => item.Unit.Unit_Number)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Unit.UID)
-            </td>
-            <td>
-                <a class="Edit" asp-action="Edit" asp-route-id="@item.RID">Edit</a> |
-                <a class="Details" asp-action="Details" asp-route-id="@item.RID">Details</a> |
+                <a class="Edit" asp-action="Edit" asp-route-id="@item.RID">Edit</a>
+                <a class="Details" asp-action="Details" asp-route-id="@item.RID">Details</a>
                 <a class="Delete" asp-action="Delete" asp-route-id="@item.RID">Delete</a>
             </td>
         </tr>

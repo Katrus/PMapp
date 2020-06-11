@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -57,5 +58,30 @@ namespace PMApp.Controllers
         {
             return _context.Buildings.Any(e => e.BuildingId == id);
         }
+
+        public IActionResult Print()
+        {
+            try
+            {
+                var buildings = from m in _context.Buildings
+                               select m;
+
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.AppendLine("Id,Property,Units");
+
+                foreach (var building in buildings)
+                {
+                    stringBuilder.AppendLine($"{building.BuildingId},{ building.Org_name},{ building.Unit_Count}");
+                }
+
+                return File(Encoding.UTF8.GetBytes
+                (stringBuilder.ToString()), "text/csv", "properties.csv");
+            }
+            catch
+            {
+                return View(nameof(Index));
+            }
+        }
+
     }
 }

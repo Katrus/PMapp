@@ -49,7 +49,7 @@ namespace PMApp.Controllers
         public IActionResult Create(int TID)
         {
             var tenants = from t in _context.Tenant where t.TID == TID select t;
-            ViewData["TenantTID"] = new SelectList(tenants, "TID", "First_name");
+            ViewData["TenantTID"] = new SelectList(tenants, "TID", "Last_name");
             return View();
         }
 
@@ -64,9 +64,9 @@ namespace PMApp.Controllers
             {
                 _context.Add(infractions);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Tenants", new { id = infractions.TenantTID });
             }
-            ViewData["TenantTID"] = new SelectList(_context.Tenant, "TID", "First_name", infractions.TenantTID);
+            ViewData["TenantTID"] = new SelectList(_context.Tenant, "TID", "Last_name", infractions.TenantTID);
             return View(infractions);
         }
 
@@ -85,7 +85,7 @@ namespace PMApp.Controllers
             }
 
             var tenants = from t in _context.Tenant where t.TID == infractions.TenantTID select t;
-            ViewData["TenantTID"] = new SelectList(tenants, "TID", "First_name");
+            ViewData["TenantTID"] = new SelectList(tenants, "TID", "Last_name");
             return View(infractions);
         }
 
@@ -119,9 +119,9 @@ namespace PMApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Tenants", new { id = infractions.TenantTID });
             }
-            ViewData["TenantTID"] = new SelectList(_context.Tenant, "TID", "First_name", infractions.TenantTID);
+            ViewData["TenantTID"] = new SelectList(_context.Tenant, "TID", "Last_name", infractions.TenantTID);
             return View(infractions);
         }
 
@@ -152,7 +152,7 @@ namespace PMApp.Controllers
             var infractions = await _context.Infractions.FindAsync(id);
             _context.Infractions.Remove(infractions);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Tenants", new { id = infractions.TenantTID });
         }
 
         private bool InfractionsExists(int id)

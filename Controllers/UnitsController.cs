@@ -67,7 +67,7 @@ namespace PMApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UID,Unit_Number,Rent_Amount,BuildingId,Square_footage,Occupied,Ready_to_rent")] Unit unit, long BuildingId)
+        public async Task<IActionResult> Create([Bind("UID,Unit_Number,Rent_Amount,BuildingId,Square_footage, Bedroom,Bath,Occupied,Ready_to_rent")] Unit unit, long BuildingId)
         {
             var build = from b in _context.Buildings
                            where b.BuildingId == BuildingId
@@ -89,6 +89,7 @@ namespace PMApp.Controllers
 
                 unit.Occupied = "No";
                 unit.Ready_to_rent = "No";
+                unit.ReservedBy = null;
                 _context.Add(unit);
 
                 var building = await _context.Buildings.FindAsync(BuildingId);
@@ -96,7 +97,7 @@ namespace PMApp.Controllers
                 _context.Update(building);
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Buildings", new { id = unit.BuildingId });
             }
            
             return View(unit);
@@ -127,7 +128,7 @@ namespace PMApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UID,Unit_Number,Rent_Amount,BuildingId,Square_footage,Occupied,Ready_to_rent")] Unit unit)
+        public async Task<IActionResult> Edit(int id, [Bind("UID,Unit_Number,Rent_Amount,BuildingId,Square_footage,Bedroom,Bath,ReservedBy,Occupied,Ready_to_rent")] Unit unit)
         {
             if (id != unit.UID)
             {
@@ -152,7 +153,7 @@ namespace PMApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Buildings", new { id = unit.BuildingId });
             }
             ViewData["BuildingId"] = new SelectList(_context.Buildings, "BuildingId", "Org_name", unit.BuildingId);
             return View(unit);
@@ -186,7 +187,13 @@ namespace PMApp.Controllers
 
             if (unit.Occupied.Equals("Yes"))
             {
-                ViewBag.Message = "Unit is occupied. Please move out the Tenant before deleting!";
+                ViewBag.Message = "Unit is occupied. Move out the Tenant before deleting!";
+                return View(unit);
+            }
+
+            if (unit.ReservedBy != null)
+            {
+                ViewBag.Message = "Unit is Reserved. Release the Unit before deleting!";
                 return View(unit);
             }
 
@@ -196,7 +203,7 @@ namespace PMApp.Controllers
             building.Unit_Count -= 1;
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Buildings", new { id = unit.BuildingId });
         }
 
         private bool UnitExists(int id)

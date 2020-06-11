@@ -20,6 +20,12 @@
                onclick="location.href='@Url.Action("Index", "Buildings")'" />
     </p>
 
+    <div style="margin-top: 20px;">
+        <a class="Edit" asp-action="Edit" asp-route-id="@Model.BuildingId">Edit Building</a>
+        <a class="Delete" asp-action="Delete" asp-route-id="@Model.BuildingId">Delete Building</a>
+
+    </div>
+
 <div>
     <hr />
     <dl class="row">
@@ -78,18 +84,21 @@
 
 <div style="margin-top: 40px;">
     <div class="reportHeader">
-         <img src="~/img/door.jpg" alt="Repair Icon" width="55" height="60" />
-         <h5>Units</h5>
+        <img src="~/img/door.jpg" alt="Repair Icon" width="55" height="60" />
+        <h5>Units</h5>
     </div>
     <hr />
-    <a class="Create" href="@Url.Action("Create", "Units", new { BuildingId = Model.BuildingId })">Create Unit</a>
-
+    <a class="Create" href="@Url.Action("Create", "Units", new { BuildingId = Model.BuildingId })">New Unit</a>
     <table class="table">
         <thead>
             <tr>
                 <th>@Html.DisplayNameFor(x => unitModel.Unit_Number)</th>
                 <th>@Html.DisplayNameFor(x => unitModel.Rent_Amount)</th>
+                <th>@Html.DisplayNameFor(x => unitModel.Bedroom)</th>
+                <th>@Html.DisplayNameFor(x => unitModel.Bath)</th>
                 <th>@Html.DisplayNameFor(x => unitModel.Square_footage)</th>
+                <th>@Html.DisplayNameFor(x => unitModel.Occupied)</th>
+                <th></th>
                 <th></th>
                 <th></th>
             </tr>
@@ -97,44 +106,75 @@
         <tbody>
             @foreach (var item in Model.Units.OrderBy(item => item.Unit_Number))
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Unit_Number)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Rent_Amount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Square_footage)
-                    </td>
-                    <td>
-                        <a class="Edit" asp-action="Edit" asp-route-id="@item.UID" asp-controller="Units">Edit</a>
-                        <a class="Details" asp-action="Details" asp-route-id="@item.UID" asp-controller="Units">Details</a>
-                        <a class="Delete" asp-action="Delete" asp-route-id="@item.UID" asp-controller="Units">Delete</a>
-                    </td>
-                    <td>
-                        @if (item.Ready_to_rent.Equals("Yes") && item.Occupied.Equals("No"))
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Unit_Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rent_Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bedroom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bath)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Square_footage)
+                </td>
+                <td>
+                    @if (item.Occupied.Equals("Reserved"))
+                    {
+                        <button class="Select" value="Reserved"
+                                onclick="location.href='@Url.Action("Details", "Tenants", new { id = item.ReservedBy })'">Reserved</button>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.Occupied)
+                    }
+                </td>
+                <td>
+                    @if (item.Ready_to_rent.Equals("Yes") && (item.Occupied.Equals("No") || item.Occupied.Equals("Reserved")))
+                    {
+                        if (item.Occupied.Equals("Reserved"))
+                        {
+                            <input type="button" class="moveIn" value="Move In"
+                                   onclick="location.href='@Url.Action("Create", "MoveIn", new { UnitUID = item.UID, TID = item.ReservedBy })'" />
+                        }
+                        else
                         {
                             <input type="button" class="moveIn" value="Move In"
                                    onclick="location.href='@Url.Action("pickTenant", "MoveIn", new { UID = item.UID })'" />
-                            <input type="button" class="makeAvailable" value="Make Unvailable"
-                                   onclick="location.href='@Url.Action("makeUnavailable", "Buildings", new {BuildingId = Model.BuildingId, UnitUID = item.UID })'" />
+                        }
 
-                        }
-                        else if (item.Ready_to_rent.Equals("No") && item.Occupied.Equals("Yes"))
-                        {
-                            <input type="button" class="moveOut" value="Move Out"
-                                   onclick="location.href='@Url.Action("Create", "MoveOut", new {BuildingId = Model.BuildingId, UnitUID = item.UID })'" />
-                        }
-                        else if (item.Ready_to_rent.Equals("No") && item.Occupied.Equals("No"))
-                        {
-                            <input type="button" class="makeAvailable" value="Make Available"
-                                   onclick="location.href='@Url.Action("makeAvailable", "Buildings", new {BuildingId = Model.BuildingId, UnitUID = item.UID })'" />
-                        }
-                
-                    </td>
+                    }
+                    else if (item.Ready_to_rent.Equals("No") && item.Occupied.Equals("Yes"))
+                    {
+                        <input type="button" class="moveOut" value="Move Out"
+                               onclick="location.href='@Url.Action("Create", "MoveOut", new {BuildingId = Model.BuildingId, UnitUID = item.UID })'" />
+                    }
 
-                </tr>
+                </td>
+                <td>
+                    @if (item.Ready_to_rent.Equals("Yes") && (item.Occupied.Equals("No") || item.Occupied.Equals("Reserved")))
+                    {
+                        <input type="button" class="makeUnavailable" value="Make Unavailable"
+                               onclick="location.href='@Url.Action("makeUnavailable", "Buildings", new {BuildingId = Model.BuildingId, UnitUID = item.UID })'" />
+                    }
+                    else if (item.Ready_to_rent.Equals("No") && (item.Occupied.Equals("No") || item.Occupied.Equals("Reserved")))
+                    {
+                        <input type="button" class="makeAvailable" value="Make Available"
+                               onclick="location.href='@Url.Action("makeAvailable", "Buildings", new {BuildingId = Model.BuildingId, UnitUID = item.UID })'" />
+                    }
+
+                </td>
+                <td>
+                    <a class="Edit" asp-action="Edit" asp-route-id="@item.UID" asp-controller="Units">Edit</a>
+                    <a class="Details" asp-action="Details" asp-route-id="@item.UID" asp-controller="Units">Details</a>
+                    <a class="Delete" asp-action="Delete" asp-route-id="@item.UID" asp-controller="Units">Delete</a>
+                </td>
+
+            </tr>
             }
         </tbody>
     </table>
@@ -157,6 +197,7 @@
                 <th>@Html.DisplayNameFor(x => tenantModel.Lease_end_date)</th>
                 <th>@Html.DisplayNameFor(x => tenantModel.Phone)</th>
                 <th>@Html.DisplayNameFor(x => tenantModel.Email)</th>
+
                 <th></th>
             </tr>
         </thead>
@@ -191,8 +232,4 @@
     </table>
 </div>
 
-<div style="margin-top: 20px;">
-    <a class="Edit" asp-action="Edit" asp-route-id="@Model.BuildingId">Edit</a> 
-    <a class="Delete" asp-action="Delete" asp-route-id="@Model.BuildingId">Delete</a>
-    
-</div>
+

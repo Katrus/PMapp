@@ -20,6 +20,7 @@ namespace PMApp.Controllers
         }
 
         // GET: Contractors
+ 
         public async Task<IActionResult> Index(string searchString)
         {
             var contractor = from m in _context.Contractor

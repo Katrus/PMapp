@@ -2,22 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PMApp.Data;
 using PMApp.Models;
 using PMApp.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 
 namespace PMApp.Controllers
 {
     public class TenantsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private IWebHostEnvironment _env;
 
-        public TenantsController(ApplicationDbContext context)
+        public TenantsController(ApplicationDbContext context, IWebHostEnvironment env)
         {
             _context = context;
+            _env = env;
         }
 
         // GET: Tenants
@@ -44,7 +49,8 @@ namespace PMApp.Controllers
                                            Salary = t.Salary,
                                            Phone = t.Phone,
                                            Email = t.Email,
-                                           Pets = t.Pets
+                                           Pets = t.Pets,
+                                           Current = t.Current
                                        };
 
             if (!String.IsNullOrEmpty(searchString))
@@ -73,6 +79,14 @@ namespace PMApp.Controllers
             if (tenant == null)
             {
                 return NotFound();
+            }
+
+            if(tenant.ReservedUnit != null)
+            {
+                var unit = await _context.Unit.FindAsync(tenant.ReservedUnit);
+                var building = await _context.Buildings.FindAsync(unit.BuildingId);
+                ViewBag.UnitNumber = unit.Unit_Number;
+                ViewBag.Property = building.Org_name;
             }
 
             tenant.Vehicles = _context.Vehicle.Where(m => m.TenantTID == id).ToList();
@@ -107,7 +121,7 @@ namespace PMApp.Controllers
                     return View(tenant);
                 }
 
-                tenant.Current = "No";
+                tenant.Current = "New";
                 _context.Add(tenant);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -124,10 +138,12 @@ namespace PMApp.Controllers
             }
 
             var tenant = await _context.Tenant.FindAsync(id);
+
             if (tenant == null)
             {
                 return NotFound();
             }
+
             return View(tenant);
         }
 
@@ -136,7 +152,7 @@ namespace PMApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TID,Last_name,First_name,Employer,Salary,Lease_start_date,Lease_end_date,Phone,Email,Pets")] Tenant tenant)
+        public async Task<IActionResult> Edit(int id, [Bind("TID,Last_name,First_name,Employer,Salary,Current,ReservedUnit,Lease_start_date,Lease_end_date,Phone,Email,Pets")] Tenant tenant)
         {
             if (id != tenant.TID)
             {
@@ -198,15 +214,103 @@ namespace PMApp.Controllers
 
             }
 
+            if (ten.ReservedUnit != null)
+            {
+                ViewBag.Message = "Release the unit before deleting the tenant!";
+                return View(ten);
+
+            }
+
             var tenant = await _context.Tenant.FindAsync(id);
             _context.Tenant.Remove(tenant);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
+
+        public async Task<IActionResult> selectBuilding(string searchString, int TID)
+        {
+            var building = from m in _context.Buildings
+                           select m;
+
+            ViewBag.Tenant = TID;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                building = building.Where(s => s.City.Contains(searchString) || s.State.Contains(searchString)
+
+                || s.Org_name.Contains(searchString) || s.Zip_code.Contains(searchString) || s.TPID.Contains(searchString));
+            }
+            return View(await building.ToListAsync());
+        }
+
+        public async Task<IActionResult> selectUnit(long BuildingId, int TID)
+        {
+            ViewBag.Tenant = TID;
+            var units = from u in _context.Unit where u.BuildingId == BuildingId && u.Occupied.Equals("No") select u;
+            var building = await _context.Buildings.FindAsync(BuildingId);
+            ViewBag.Bname = building.Org_name;
+
+            return View(await units.ToListAsync());
+        }
+
+        public async Task<IActionResult> reserveUnit(int UID, int TID)
+        {
+            try
+            {
+                var unit = await _context.Unit.FindAsync(UID);
+                var tenant = await _context.Tenant.FindAsync(TID);
+                unit.Occupied = "Reserved";
+                unit.ReservedBy = TID;
+                tenant.ReservedUnit = UID;
+                _context.Update(unit);
+                _context.Update(tenant);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Details", "Tenants", new { id = TID });
+            }
+
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
+        }
+
+        public async Task<IActionResult> releaseUnit(int UID, int TID)
+        {
+            try
+            {
+                var unit = await _context.Unit.FindAsync(UID);
+                var tenant = await _context.Tenant.FindAsync(TID);
+                unit.Occupied = "No";
+                unit.ReservedBy = null;
+                tenant.ReservedUnit = null;
+                _context.Update(unit);
+                _context.Update(tenant);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Details", "Tenants", new { id = TID });
+            }
+
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
+
+        }
+
         private bool TenantExists(int id)
         {
             return _context.Tenant.Any(e => e.TID == id);
+        }
+
+        public IActionResult UploadFile(IFormFile file)
+        {
+            var dir = _env.ContentRootPath;
+            using(var fileStream = new FileStream(Path.Combine(dir, "file.pdf"), FileMode.Create, FileAccess.Write))
+            {
+                file.CopyTo(fileStream);
+            }
+
+            return RedirectToAction("Index");
         }
 
     }

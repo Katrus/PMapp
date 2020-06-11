@@ -24,8 +24,8 @@ namespace PMApp.Controllers
         public async Task<IActionResult> Index(string searchString)
         {
             var applicationDbContext = from v in _context.Vehicle.Include(v => v.Tenant)
-                                       where v.Tenant.Lease_end_date > DateTime.Today && v.Tenant.Lease_start_date < DateTime.Today
-                                       join r in _context.Rent on v.TenantTID equals r.TenantTID into temp
+                                       where v.Tenant.Current.Equals("Yes")
+                                       join r in _context.Move_in on v.TenantTID equals r.TenantTID into temp
                                        from lj in temp.DefaultIfEmpty()
                                        join u in _context.Unit on lj.UnitUID equals u.UID into temp2
                                        from lj2 in temp2.DefaultIfEmpty()

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PMApp.Data;
 using PMApp.Models;
+using PMApp.ViewModels;
 
 namespace PMApp.Controllers
 {
@@ -24,7 +25,7 @@ namespace PMApp.Controllers
         {
             var building = from m in _context.Buildings
                            select m;
-         
+
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -58,7 +59,7 @@ namespace PMApp.Controllers
                                     from lj in temp.DefaultIfEmpty()
                                     join t in _context.Tenant
                                     on lj.TenantTID equals t.TID into temp2
-                                    from lj2 in temp2
+                                    from lj2 in temp2.DefaultIfEmpty()
                                     where lj2.Current.Equals("Yes")
                                     select lj2;
 
@@ -101,7 +102,7 @@ namespace PMApp.Controllers
 
                 _context.Update(unit);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Details", "Buildings", new {id = BuildingId });
+                return RedirectToAction("Details", "Buildings", new { id = BuildingId });
             }
             return View();
         }
@@ -198,11 +199,11 @@ namespace PMApp.Controllers
             var building = await _context.Buildings.FindAsync(id);
             var units = from u in _context.Unit where u.BuildingId == id select u;
 
-            foreach(var u in units)
+            foreach (var u in units)
             {
-                if(u.Occupied.Equals("Yes"))
+                if (u.Occupied.Equals("Yes") || u.Occupied.Equals("Reserved"))
                 {
-                    ViewBag.Message = "Move out all Tenants first!";
+                    ViewBag.Message = "Release all Tenants first!";
                     return View(building);
                 }
             }
@@ -216,5 +217,8 @@ namespace PMApp.Controllers
         {
             return _context.Buildings.Any(e => e.BuildingId == id);
         }
+
+
     }
 }
+

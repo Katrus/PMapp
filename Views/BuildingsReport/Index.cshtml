@@ -9,15 +9,17 @@
     <h1>Managed Properties Report</h1>
 </div>
 
-<p></p>
-<p></p>
-
 <p>
     <input type="button" class="button" value="BACK TO REPORTS"
            onclick="location.href='@Url.Action("Index", "Checklists")'" />
 </p>
 
 <p></p>
+<p></p>
+
+<p></p>
+    <input type="image" class="Print" value="Print" src="~/img/print.png"
+           onclick="location.href='@Url.Action("Print", "BuildingsReport")'"/>
 <p></p>
 
 <form asp-controller="BuildingsReport" asp-action="Index" method="get">
@@ -68,7 +70,7 @@
                     @Html.DisplayFor(modelItem => item.TPID)
                 </td>
                 <td>
-                    <a class="Details" asp-action="Details" asp-route-id="@item.BuildingId">Details</a>  
+                    <a class="Details" asp-action="Details" asp-route-id="@item.BuildingId">Details</a>
                 </td>
             </tr>
         }

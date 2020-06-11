@@ -23,7 +23,7 @@ namespace PMApp.Models
         public string Color { get; set; }
 
         [Display(Name = "Parking stall")]
-        public int stall_number { get; set; }
+        public int? stall_number { get; set; }
 
         [Display(Name = "Tenant")]
         public int TenantTID { get; set; }

@@ -85,6 +85,8 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="MIID" />
         <input type="submit" value="Withdraw" class="btn btn-danger" />
-        <a class="backToList" asp-action="Index">Back to List</a>
+
+        <input type="button" class="button" value="TO PROPERTIES"
+               onclick="location.href='@Url.Action("Index", "Buildings")'" />
     </form>
 </div>

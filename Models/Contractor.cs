@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,12 +13,14 @@ namespace PMApp.Models
         [Key]
         public int CID { get; set; }
 
-        [Display(Name = "Company")]
+        [Required]
+        [Display(Name = "Vendor")]
         public string Company_name { get; set; }
 
         [Display(Name = "Contact person")]
         public string Contact_name { get; set; }
 
+        [Display(Name ="Category")]
         public string Specialty { get; set; }
 
         public string Phone { get; set; }

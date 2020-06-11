@@ -71,6 +71,8 @@
     </dl>
 </div>
 <div>
-    <a class="Edit" asp-action="Edit" asp-route-id="@Model.MIID">Edit</a> 
-    <a class="backToList" asp-action="Index">Back to List</a>
+    <a class="Edit" asp-action="Edit" asp-route-id="@Model.MIID">Edit</a>
+
+    <input type="button" class="button" value="TO PROPERTIES"
+           onclick="location.href='@Url.Action("Index", "Buildings")'" />
 </div>

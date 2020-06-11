@@ -23,13 +23,13 @@ namespace PMApp.Models
         public string Walls { get; set; }
 
         [Display(Name = "Cleaning fee")]
-        public float Cleaning_fee { get; set; }
+        public float? Cleaning_fee { get; set; }
 
         [Display(Name = "Damage fee")]
-        public float Damage_fee { get; set; }
+        public float? Damage_fee { get; set; }
 
         [Display(Name = "Fees paid")]
-        public float fees_paid { get; set; }
+        public float? fees_paid { get; set; }
 
         [Display(Name ="Tenant")]
         public int TenantTID { get; set; }

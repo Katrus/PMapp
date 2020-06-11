@@ -10,20 +10,28 @@ namespace PMApp.ViewModels
     {
         public int RID { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         [Display(Name = "Due date")]
         public DateTime Date_due { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         [Display(Name = "Date paid")]
         public Nullable<DateTime> Date_paid { get; set; }
 
         [Display(Name = "Rent amount")]
         public float Rent_amount { get; set; }
 
-        [Display(Name = "Pet fee")]
-        public float Pet_fee { get; set; }
+        [Display(Name = "Paid amount")]
+        public float Amount_paid { get; set; }
 
-        [Display(Name = "Parking fee")]
-        public float Parking_fee { get; set; }
+        public float Balance
+        {
+            //calculate amount left to pay
+            get { return Rent_amount - Amount_paid; }
+            set { }
+        }
 
         public int TenantTID { get; set; }
 

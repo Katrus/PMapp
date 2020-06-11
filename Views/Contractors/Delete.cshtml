@@ -73,7 +73,8 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="CID" />
         <input type="submit" value="Delete" class="btn btn-danger" /> 
-        <a class="backToList" asp-action="Index">Back to List</a>
+        <input type="button" class="button" value="Back to List"
+               onclick="location.href='@Url.Action("Index")'" />
     </form>
 
 </div>

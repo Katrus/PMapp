@@ -28,6 +28,16 @@
                 <span asp-validation-for="Rent_Amount" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Bedroom" class="control-label"></label>
+                <input asp-for="Bedroom" class="form-control" />
+                <span asp-validation-for="Bedroom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bath" class="control-label"></label>
+                <input asp-for="Bath" class="form-control" />
+                <span asp-validation-for="Bath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Square_footage" class="control-label"></label>
                 <input asp-for="Square_footage" class="form-control" />
                 <span asp-validation-for="Square_footage" class="text-danger"></span>
@@ -35,6 +45,11 @@
             <div class="form-group">
                 <label asp-for="BuildingId" class="control-label"></label>
                 <select asp-for="BuildingId" class="form-control" asp-items="ViewBag.BuildingId"></select>
+            </div>
+            <div style="display:none" class="form-group">
+                <label asp-for="ReservedBy" class="control-label"></label>
+                <input readonly asp-for="ReservedBy" class="form-control" />
+                <span asp-validation-for="ReservedBy" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Occupied" class="control-label"></label>
@@ -55,8 +70,8 @@
 
 <div>
     <p>
-        <input type="button" class="button" value="BACK TO PROPERTIES"
-               onclick="location.href='@Url.Action("Index", "Buildings")'" />
+        <input type="button" class="button" value="BACK TO PROPERTY"
+               onclick="location.href='@Url.Action("Index", "Buildings", new {id = Model.BuildingId })'" />
     </p>
 </div>
 

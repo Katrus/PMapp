@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PMApp.Data;
 using PMApp.Models;
+using PMApp.ViewModels;
 
 namespace PMApp.Controllers
 {
@@ -20,144 +21,35 @@ namespace PMApp.Controllers
         }
 
         // GET: MoveInReport
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var applicationDbContext = _context.Move_in.Include(m => m.Tenant).Include(m => m.Unit);
+            var applicationDbContext = from m in _context.Move_in.Include(m => m.Tenant).Include(m => m.Unit) 
+                                       join b in _context.Buildings on m.Unit.BuildingId equals b.BuildingId select new MoveInViewModel
+                                       {
+                                           Last_name = m.Tenant.Last_name,
+                                           Unit = m.Unit.Unit_Number,
+                                           Property = b.Org_name,
+                                           Date = m.Date,
+                                           Carpet = m.Carpet,
+                                           Appliances = m.Appliances,
+                                           Walls = m.Walls,
+                                           Nonrefundable_deposit = m.Nonrefundable_deposit,
+                                           Refundable_deposit = m.Refundable_deposit,
+                                           Pet_deposit = m.Pet_deposit
+                                       };
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                applicationDbContext = applicationDbContext.Where(s => s.Last_name.Contains(searchString)
+                || s.Unit.ToString().Contains(searchString)
+                || s.Property.Contains(searchString));
+            }
+
+
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: MoveInReport/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var move_in = await _context.Move_in
-                .Include(m => m.Tenant)
-                .Include(m => m.Unit)
-                .FirstOrDefaultAsync(m => m.MIID == id);
-            if (move_in == null)
-            {
-                return NotFound();
-            }
-
-            return View(move_in);
-        }
-
-        // GET: MoveInReport/Create
-        public IActionResult Create()
-        {
-            ViewData["TenantTID"] = new SelectList(_context.Tenant, "TID", "First_name");
-            ViewData["UnitUID"] = new SelectList(_context.Unit, "UID", "UID");
-            return View();
-        }
-
-        // POST: MoveInReport/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MIID,UnitUID,Date,Carpet,Appliances,Walls,Refundable_deposit,Nonrefundable_deposit,Pet_deposit,TenantTID")] Move_in move_in)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(move_in);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["TenantTID"] = new SelectList(_context.Tenant, "TID", "First_name", move_in.TenantTID);
-            ViewData["UnitUID"] = new SelectList(_context.Unit, "UID", "UID", move_in.UnitUID);
-            return View(move_in);
-        }
-
-        // GET: MoveInReport/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var move_in = await _context.Move_in.FindAsync(id);
-            if (move_in == null)
-            {
-                return NotFound();
-            }
-            ViewData["TenantTID"] = new SelectList(_context.Tenant, "TID", "First_name", move_in.TenantTID);
-            ViewData["UnitUID"] = new SelectList(_context.Unit, "UID", "UID", move_in.UnitUID);
-            return View(move_in);
-        }
-
-        // POST: MoveInReport/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MIID,UnitUID,Date,Carpet,Appliances,Walls,Refundable_deposit,Nonrefundable_deposit,Pet_deposit,TenantTID")] Move_in move_in)
-        {
-            if (id != move_in.MIID)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(move_in);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!Move_inExists(move_in.MIID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["TenantTID"] = new SelectList(_context.Tenant, "TID", "First_name", move_in.TenantTID);
-            ViewData["UnitUID"] = new SelectList(_context.Unit, "UID", "UID", move_in.UnitUID);
-            return View(move_in);
-        }
-
-        // GET: MoveInReport/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var move_in = await _context.Move_in
-                .Include(m => m.Tenant)
-                .Include(m => m.Unit)
-                .FirstOrDefaultAsync(m => m.MIID == id);
-            if (move_in == null)
-            {
-                return NotFound();
-            }
-
-            return View(move_in);
-        }
-
-        // POST: MoveInReport/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var move_in = await _context.Move_in.FindAsync(id);
-            _context.Move_in.Remove(move_in);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
+       
         private bool Move_inExists(int id)
         {
             return _context.Move_in.Any(e => e.MIID == id);
