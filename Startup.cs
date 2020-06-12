@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PMApp.Models;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace PMApp
 {
@@ -36,6 +37,11 @@ namespace PMApp
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.Configure<RazorViewEngineOptions>(o =>
+            {
+                o.ViewLocationExpanders.Add(new LocationExpanderService());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +73,7 @@ namespace PMApp
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
         }
     }
 }
