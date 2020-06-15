@@ -1,0 +1,56 @@
+﻿@model IEnumerable<PMApp.Models.Tax_Parcel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="reportHeader">
+        <h1>
+            <img src="~/img/tax.png" alt="Repair Icon" width="55" height="60" />
+            Yearly tax
+        </h1>
+    </div>
+
+    <p>
+        <input type="button" class="button" value="BACK TO PROPERTY"
+               onclick="location.href='@Url.Action("Details", "Buildings", new { id = ViewBag.Building })'" />
+    </p>
+
+<p>
+    <a class="Create" asp-action="Create" asp-route-buildingid ="@ViewBag.Building">Add record</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Building)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.amount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Building.Org_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.amount)
+            </td>
+            <td>
+                <a class="Edit" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                <a class="Delete" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

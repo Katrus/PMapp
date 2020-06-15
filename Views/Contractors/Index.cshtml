@@ -7,7 +7,7 @@
 <div class="reportHeader">
     <h1>
         <img src="~/img/contract.png" alt="Repair Icon" width="55" height="60" />
-        Contractors
+        Vendors
     </h1>
 </div>
 
@@ -57,41 +57,41 @@
     <tbody>
         @foreach (var item in Model.OrderBy(item => item.Specialty))
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Company_name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Contact_name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Specialty)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Phone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Street)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.City)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Zip_code)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.State)
-                </td>
-                <td>
-                    <a class="Edit" asp-action="Edit" asp-route-id="@item.CID">Edit</a>
-                    <a class="Details" asp-action="Details" asp-route-id="@item.CID">Details</a>
-                    <a onclick="return confirm('Deleting this contractor will delete all his repair records as well!')" class="Delete" asp-action="Delete" asp-route-id="@item.CID">Delete</a>
-
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contact_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Specialty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zip_code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                <a class="Edit" asp-action="Edit" asp-route-id="@item.CID">Edit</a>
+                <a class="Details" asp-action="Details" asp-route-id="@item.CID">Details</a>
+                <a onclick="return confirm('Deleting this contractor will delete all his repair records as well!')"
+                   class="Delete" asp-action="Delete" asp-route-id="@item.CID">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

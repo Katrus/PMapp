@@ -214,5 +214,34 @@ namespace PMApp.Controllers
             }
             return View(await building.ToListAsync());
         }
+
+        public async Task<IActionResult> ContractorRepairs(int id)
+        {
+            var applicationDbContext = from m in _context.Repair_History.Include(r => r.Contractor).Include(r => r.Unit)
+                                       where m.ContractorCID == id
+                                       join b in _context.Buildings on m.Unit.BuildingId equals b.BuildingId into temp
+                                       from lj in temp.DefaultIfEmpty()
+                                       select new RepairsViewModel
+                                       {
+                                           RHID = m.RHID,
+                                           Contractor = m.Contractor.Company_name,
+                                           Unit = m.Unit.Unit_Number,
+                                           Cost = m.Cost,
+                                           Property = lj.Org_name,
+                                           Ticket_opened = m.Ticket_opened,
+                                           Ticket_closed = m.Ticket_closed,
+                                           Work_description = m.Work_description,
+                                           Work_started = m.Work_started,
+                                           Work_ended = m.Work_ended,
+                                           Date_due = m.Date_due
+
+                                       };
+
+            var contractor = await _context.Contractor.FindAsync(id);
+            ViewBag.Contractor = contractor.Company_name;
+            ViewBag.CID = contractor.CID;
+
+            return View(await applicationDbContext.ToListAsync());
+        }
     }
 }

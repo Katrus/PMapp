@@ -71,7 +71,13 @@
     </dl>
 </div>
 <div>
-    <a class="Edit" asp-action="Edit" asp-route-id="@Model.CID">Edit</a> 
+    <a class="Edit" asp-action="Edit" asp-route-id="@Model.CID">Edit</a>
+</div>
+
+<div>
+    <input type="button" class="moveOut" value="Work"
+           onclick="location.href='@Url.Action("ContractorRepairs", "Repair_History", new { id = Model.CID })'" />
+
     <input type="button" class="button" value="Back to List"
            onclick="location.href='@Url.Action("Index")'" />
 </div>

@@ -80,6 +80,12 @@
 
     <input type="button" class="moveOut" value="Move Outs"
            onclick="location.href='@Url.Action("Index", "MoveOut", new { BuildingId = Model.BuildingId })'" />
+
+    <input type="button" class="moveOut" value="Tax"
+           onclick="location.href='@Url.Action("Index", "Tax_Parcel", new { BuildingId = Model.BuildingId })'" />
+
+    <input type="button" class="moveOut" value="Rent"
+           onclick="location.href='@Url.Action("MonthlyRent", "Rents", new { BuildingId = Model.BuildingId })'" />
 </div>
 
 <div style="margin-top: 40px;">
@@ -224,7 +230,7 @@
                         @Html.DisplayFor(modelItem => item.Email)
                     </td>
                     <td>
-                        <a class="Details" asp-action="Details" asp-route-id="@item.TID" asp-controller="Tenants">Details</a>
+                        <a class="Details" asp-action="Details" asp-route-id="@item.TID" asp-controller="Tenants">Manage</a>
                     </td>
                 </tr>
             }

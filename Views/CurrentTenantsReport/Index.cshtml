@@ -59,7 +59,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.OrderBy(item => item.Property))
+        @foreach (var item in Model.OrderBy(item => item.Lease_end_date))
         {
             <tr>
                 <td>

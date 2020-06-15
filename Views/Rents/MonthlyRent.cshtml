@@ -1,0 +1,56 @@
+﻿@model IEnumerable<PMApp.ViewModels.RentViewModel>
+
+@{
+    ViewData["Title"] = "MonthlyRent";
+}
+
+<div class="reportHeader">
+    <img src="~/img/rent.jpg" alt="Report Icon" width="55" height="60" />
+    <h1>Monthly Rent Summary</h1>
+</div>
+
+<p></p>
+<p></p>
+
+<p>
+    <input type="button" class="button" value="BACK TO PROPERTY"
+           onclick="location.href='@Url.Action("Details", "Buildings", new { id = ViewBag.Building})'" />
+</p>
+
+<p></p>
+<p></p>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Month)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rent_amount)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderByDescending(item => item.Year).OrderBy(item => item.MonthNum))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Month)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rent_amount)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

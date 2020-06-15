@@ -37,11 +37,6 @@ namespace PMApp
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
-
-            services.Configure<RazorViewEngineOptions>(o =>
-            {
-                o.ViewLocationExpanders.Add(new LocationExpanderService());
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -46,29 +46,35 @@
             <th>
                 @Html.DisplayNameFor(model => model.Work_description)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date_due)
+            </th>
 
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Unit_Number)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Rent_Amount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Square_footage)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Property)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Work_description)
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Unit_Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rent_Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Square_footage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Property)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Work_description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_due)
+            </td>
+        </tr>
         }
     </tbody>
 </table>

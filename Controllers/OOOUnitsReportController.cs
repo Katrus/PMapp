@@ -24,7 +24,7 @@ namespace PMApp.Controllers
         public async Task<IActionResult> Index(string searchString)
         {
             var applicationDbContext = from u in _context.Unit.Include(u => u.Building)
-                where u.Occupied.ToUpper() == "NO" && u.Ready_to_rent.ToUpper() == "NO"
+                where u.Occupied == "No" && u.Ready_to_rent == "No"
                 join re in _context.Repair_History on u.UID equals re.UnitUID into temp
                 from lj in temp.DefaultIfEmpty()
                 select new OOOViewModel { 
@@ -32,7 +32,8 @@ namespace PMApp.Controllers
                           Property = u.Building.Org_name,
                           Square_footage = u.Square_footage,
                           Rent_Amount = u.Rent_Amount,
-                          Work_description = lj.Work_description
+                          Work_description = lj.Work_description,
+                          Date_due = lj.Date_due
                 };
 
             if (!String.IsNullOrEmpty(searchString))

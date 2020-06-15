@@ -27,5 +27,14 @@ namespace PMApp.ViewModels
 
         [Display(Name = "Work description")]
         public string Work_description { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Due")]
+        [DataType(DataType.Date)]
+        public Nullable<DateTime> Date_due
+        {
+            get; set;
+        }
+
     }
 }

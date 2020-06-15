@@ -1,0 +1,106 @@
+﻿@model IEnumerable<PMApp.ViewModels.RepairsViewModel>
+
+@{
+    ViewData["Title"] = "ContractorRepairs";
+}
+
+<div class="reportHeader">
+    <h1>
+        <img src="~/img/repair.png" alt="Repair Icon" width="55" height="60" />
+        @ViewBag.Contractor repairs
+    </h1>
+</div>
+
+<p>
+    <input type="button" class="button" value="BACK TO VENDOR"
+           onclick="location.href='@Url.Action("Details", "Contractors", new { id = ViewBag.CID})'" />
+</p>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Property)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Unit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date_due)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Work_started)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Work_ended)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Work_description)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderBy(item => item.Property))
+        {
+
+            if (item.Ticket_closed == null && item.Date_due < DateTime.Today)
+            {
+        <tr style="background-color:#ffc863">
+            <th>
+                @Html.DisplayFor(model => item.Property)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Unit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_due)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Work_started)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Work_ended)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Work_description)
+            </td>
+        </tr>
+            }
+            else
+            {
+    <tr>
+        <th>
+            @Html.DisplayFor(model => item.Property)
+        </th>
+        <td>
+            @Html.DisplayFor(modelItem => item.Unit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date_due)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Work_started)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Work_ended)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Work_description)
+        </td>
+    </tr>
+            }
+        }
+    </tbody>
+</table>
+
+

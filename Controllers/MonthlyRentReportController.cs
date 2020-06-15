@@ -23,7 +23,7 @@ namespace PMApp.Controllers
 
 
         // GET: MonthlyRentReport
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index()
         {
 
             var applicationDbContext = from r in _context.Rent.Include(r => r.Tenant).Include(r => r.Unit)
