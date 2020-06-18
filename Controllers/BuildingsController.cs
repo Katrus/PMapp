@@ -216,6 +216,33 @@ namespace PMApp.Controllers
             return _context.Buildings.Any(e => e.BuildingId == id);
         }
 
+        public async Task<IActionResult> getPets(long BuildingId)
+        {
+            var applicationDbContext = from t in _context.Tenant
+                                       where t.Current.Equals("Yes") && t.Pets != null
+                                       join r in _context.Move_in on t.TID
+                                       equals r.TenantTID into temp
+                                       from lj in temp.DefaultIfEmpty()
+                                       join u in _context.Unit on lj.UnitUID equals u.UID into temp2
+                                       from lj2 in temp2.DefaultIfEmpty()
+                                       join b in _context.Buildings on lj2.BuildingId equals b.BuildingId into temp3
+                                       from lj3 in temp3.DefaultIfEmpty() where lj3.BuildingId == BuildingId
+                                       select new TenantViewModel
+                                       {
+                                           TID = t.TID,
+                                           Last_name = t.Last_name,
+                                           Property = lj3.Org_name,
+                                           Unit = lj2.Unit_Number,
+                                           Phone = t.Phone,
+                                           Email = t.Email,
+                                           Pets = t.Pets
+                                       };
+            ViewBag.Building = BuildingId;
+
+            return View(await applicationDbContext.ToListAsync());
+
+        }
+
 
     }
 }

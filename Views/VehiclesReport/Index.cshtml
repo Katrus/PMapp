@@ -18,6 +18,8 @@
 </p>
 
 <p></p>
+<input type="image" class="Print" value="Print" src="~/img/print.png"
+       onclick="location.href='@Url.Action("Print", "BuildingsReport")'" />
 <p></p>
 
 <form asp-controller="VehiclesReport" asp-action="Index" method="get">
@@ -68,41 +70,41 @@
     <tbody>
         @foreach (var item in Model.OrderBy(item => item.Property))
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.License_plate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Model)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Make)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.stall_number)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Last_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.First_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Property)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Unit)
-            </td>
-            <td>
-                <a class="Details" asp-action="Details" asp-route-id="@item.VID">Details</a> 
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.License_plate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Make)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.stall_number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Last_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.First_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Property)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Unit)
+                </td>
+                <td>
+                    <a class="Details" asp-action="Details" asp-route-id="@item.VID">Details</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

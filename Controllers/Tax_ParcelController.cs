@@ -53,6 +53,7 @@ namespace PMApp.Controllers
         {
             var building = from b in _context.Buildings where b.BuildingId == BuildingId select b;
 
+            ViewBag.Building = BuildingId;
             ViewData["BuildingId"] = new SelectList(building, "BuildingId", "Org_name");
             return View();
         }
@@ -68,7 +69,7 @@ namespace PMApp.Controllers
             {
                 _context.Add(tax_Parcel);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Tax_Parcel", new { id = tax_Parcel.BuildingId});
+                return RedirectToAction("Index", "Tax_Parcel", new { BuildingId = tax_Parcel.BuildingId});
             }
             ViewData["BuildingId"] = new SelectList(_context.Buildings, "BuildingId", "Org_name", tax_Parcel.BuildingId);
             return View(tax_Parcel);
@@ -105,6 +106,8 @@ namespace PMApp.Controllers
                 return NotFound();
             }
 
+            ViewBag.Building = tax_Parcel.BuildingId;
+
             if (ModelState.IsValid)
             {
                 try
@@ -123,8 +126,9 @@ namespace PMApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index", "Tax_Parcel", new { id = tax_Parcel.BuildingId });
+                return RedirectToAction("Index", "Tax_Parcel", new { BuildingId = tax_Parcel.BuildingId });
             }
+
             ViewData["BuildingId"] = new SelectList(_context.Buildings, "BuildingId", "Org_name", tax_Parcel.BuildingId);
             return View(tax_Parcel);
         }
@@ -145,6 +149,8 @@ namespace PMApp.Controllers
                 return NotFound();
             }
 
+            ViewBag.Building = tax_Parcel.BuildingId;
+
             return View(tax_Parcel);
         }
 
@@ -156,7 +162,7 @@ namespace PMApp.Controllers
             var tax_Parcel = await _context.Tax_Parcels.FindAsync(id);
             _context.Tax_Parcels.Remove(tax_Parcel);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Tax_Parcel", new { id = tax_Parcel.BuildingId });
+            return RedirectToAction("Index", "Tax_Parcel", new { BuildingId = tax_Parcel.BuildingId });
         }
 
         private bool Tax_ParcelExists(int id)

@@ -86,6 +86,12 @@
 
     <input type="button" class="moveOut" value="Rent"
            onclick="location.href='@Url.Action("MonthlyRent", "Rents", new { BuildingId = Model.BuildingId })'" />
+
+    <input type="button" class="moveOut" value="Vehicles"
+           onclick="location.href='@Url.Action("getVehicles", "Vehicles", new { BuildingId = Model.BuildingId })'" />
+
+    <input type="button" class="moveOut" value="Pets"
+           onclick="location.href='@Url.Action("getPets", "Buildings", new { BuildingId = Model.BuildingId })'" />
 </div>
 
 <div style="margin-top: 40px;">

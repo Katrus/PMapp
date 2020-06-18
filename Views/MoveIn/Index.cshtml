@@ -13,7 +13,7 @@
 
 <p>
     <input type="button" class="button" value="BACK TO BUILDINGS"
-           onclick="location.href='@Url.Action("Index", "Buildings")'" />
+           onclick="location.href='@Url.Action("Details", "Buildings", new { id = ViewBag.Building})'" />
 </p>
 
 <table class="table">

@@ -24,6 +24,8 @@ namespace PMApp.Controllers
         {
             var applicationDbContext = _context.Move_out.Include(m => m.Tenant).Include(m => m.Unit);
             var buildingMoveOuts = from m in applicationDbContext where m.Unit.BuildingId == BuildingId select m;
+
+            ViewBag.Building = BuildingId;
             return View(await buildingMoveOuts.ToListAsync());
         }
 

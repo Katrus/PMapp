@@ -1,0 +1,63 @@
+﻿@model IEnumerable<PMApp.ViewModels.TenantViewModel>
+
+@{
+    ViewData["Title"] = "Default";
+}
+
+
+    <div>
+        <table id="new" class="table" style="display:block;">
+            <thead>
+                <tr>
+                    <th class="thnew">
+                        @Html.DisplayNameFor(model => model.Last_name)
+                    </th>
+                    <th class="thnew">
+                        @Html.DisplayNameFor(model => model.First_name)
+                    </th>
+                    <th class="thnew">
+                        @Html.DisplayNameFor(model => model.Lease_start_date)
+                    </th>
+                    <th class="thnew">
+                        @Html.DisplayNameFor(model => model.Lease_end_date)
+                    </th>
+                    <th class="thnew">
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th class="thnew"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var newItem in Model.OrderByDescending(newItem => newItem.Last_name))
+                {
+                        <tr style="background-color:#e7ffe0">
+
+                            <td>
+                                @Html.DisplayFor(modelItem => newItem.Last_name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => newItem.First_name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => newItem.Lease_start_date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => newItem.Lease_end_date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => newItem.Email)
+                            </td>
+                            <td>
+                                <a class="Edit" asp-action="Edit" asp-route-id="@newItem.TID">Edit</a>
+                                <a class="Details" asp-action="Details" asp-route-id="@newItem.TID">Manage</a>
+                                <a class="Delete" asp-action="Delete" asp-route-id="@newItem.TID">Delete</a>
+                            </td>
+
+                        </tr>
+                }
+            </tbody>
+        </table>
+    </div>    
+
+
+

@@ -18,6 +18,8 @@
 </p>
 
 <p></p>
+<input type="image" class="Print" value="Print" src="~/img/print.png"
+       onclick="location.href='@Url.Action("Print", "BuildingsReport")'" />
 <p></p>
 
 <form asp-controller="ContractorsReport" asp-action="Index" method="get">
@@ -75,7 +77,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.State)
                 </td>
-                <td> 
+                <td>
                     <a class="Details" asp-action="Details" asp-route-id="@item.CID">Details</a> |
                 </td>
             </tr>

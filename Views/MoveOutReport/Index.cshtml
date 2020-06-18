@@ -18,6 +18,8 @@
 </p>
 
 <p></p>
+<input type="image" class="Print" value="Print" src="~/img/print.png"
+       onclick="location.href='@Url.Action("Print", "BuildingsReport")'" />
 <p></p>
 
 <form asp-controller="MoveOutReport" asp-action="Index" method="get">
@@ -64,38 +66,38 @@
     <tbody>
         @foreach (var item in Model.OrderByDescending(item => item.Date))
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Carpet)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Appliances)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Walls)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cleaning_fee)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Damage_fee)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fees_paid)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Last_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Property)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Unit)
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Carpet)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Appliances)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Walls)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cleaning_fee)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Damage_fee)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fees_paid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Last_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Property)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Unit)
+                </td>
+            </tr>
         }
     </tbody>
 </table>

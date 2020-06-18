@@ -18,6 +18,8 @@
 </p>
 
 <p></p>
+<input type="image" class="Print" value="Print" src="~/img/print.png"
+       onclick="location.href='@Url.Action("Print", "BuildingsReport")'" />
 <p></p>
 
 <form asp-controller="RepairsOpenTickets" asp-action="Index" method="get">
@@ -62,33 +64,33 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Work_description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ticket_opened)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Work_started)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Work_ended)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Property)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Unit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Contractor)
-            </td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Work_description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ticket_opened)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Work_started)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Work_ended)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Property)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Unit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contractor)
+                </td>
 
-        </tr>
+            </tr>
         }
     </tbody>
 </table>

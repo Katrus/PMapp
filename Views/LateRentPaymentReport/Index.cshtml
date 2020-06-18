@@ -18,6 +18,8 @@
 </p>
 
 <p></p>
+<input type="image" class="Print" value="Print" src="~/img/print.png"
+       onclick="location.href='@Url.Action("Print", "BuildingsReport")'" />
 <p></p>
 
 <form asp-controller="LateRentPaymentReport" asp-action="Index" method="get">
@@ -98,7 +100,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
-               
+
             </tr>
         }
     </tbody>

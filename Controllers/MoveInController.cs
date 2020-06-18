@@ -26,6 +26,8 @@ namespace PMApp.Controllers
             var applicationDbContext = _context.Move_in.Include(m => m.Tenant).Include(m => m.Unit);
             var buildingMoveIns = from m in applicationDbContext where m.Unit.BuildingId == BuildingId select m;
 
+            ViewBag.Building = BuildingId;
+
             return View(await buildingMoveIns.ToListAsync());
 
         }

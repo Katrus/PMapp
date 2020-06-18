@@ -1,8 +1,9 @@
-﻿@model IEnumerable<PMApp.ViewModels.TenantViewModel>
+﻿@model PMApp.ViewModels.TenantsTabViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
+
 
 <div class="reportHeader">
     <h1>
@@ -11,258 +12,37 @@
     </h1>
 </div>
 
-<form asp-controller="Tenants" asp-action="Index" method="get">
-    <p>
-        SEARCH: <input type="text" name="SearchString">
-        <input type="submit" value="Filter" />
-    </p>
-</form>
-
 <p>
     <a class="Create" asp-action="Create">Create New</a>
 </p>
 
-<div>
-    <button class="ZNew" onclick="showNew()">Show Future Tenants</button>
-    <button class="ZNew" onclick="hideNew()">Hide Future Tenants</button>
+
+<div style="margin-top:50px;">
+    <ul class="nav nav-tabs">
+        <li role="navigation" class="@(Model.ActiveTab == PMApp.ViewModels.Tab.Current ? "active" : string.Empty)">
+            <a asp-route-tabname="Current" asp-controller="Tenants" asp-action="SwitchToTabs">Current</a>
+        </li>
+        <li role="presentation" class="@(Model.ActiveTab == PMApp.ViewModels.Tab.Future ? "active" : string.Empty)">
+            <a asp-route-tabname="Future" asp-action="SwitchToTabs">Future</a>
+        </li>
+        <li role="presentation" class="@(Model.ActiveTab == PMApp.ViewModels.Tab.Past ? "active" : string.Empty)">
+            <a asp-route-tabname="Past" asp-action="SwitchToTabs">Past</a>
+        </li>
+    </ul>
 </div>
 
-<div>
-    <table id="new" class="table" style="display:block;">
-        <thead>
-            <tr>
-                <th class="thnew">
-                    @Html.DisplayNameFor(model => model.Last_name)
-                </th>
-                <th class="thnew">
-                    @Html.DisplayNameFor(model => model.First_name)
-                </th>
-                <th class="thnew">
-                    @Html.DisplayNameFor(model => model.Lease_start_date)
-                </th>
-                <th class="thnew">
-                    @Html.DisplayNameFor(model => model.Lease_end_date)
-                </th>
-                <th class="thnew">
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th class="thnew"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var newItem in Model.OrderByDescending(newItem => newItem.Last_name))
-            {
-                if (newItem.Current.Equals("New"))
-                {
-                    <tr style="background-color:#e7ffe0">
-
-                        <td>
-                            @Html.DisplayFor(modelItem => newItem.Last_name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => newItem.First_name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => newItem.Lease_start_date)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => newItem.Lease_end_date)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => newItem.Email)
-                        </td>
-                        <td>
-                            <a class="Edit" asp-action="Edit" asp-route-id="@newItem.TID">Edit</a>
-                            <a class="Details" asp-action="Details" asp-route-id="@newItem.TID">Manage</a>
-                            <a class="Delete" asp-action="Delete" asp-route-id="@newItem.TID">Delete</a>
-                        </td>
-
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
-</div>
-
-<div style="margin-top: 70px;">
-    <button class="Yes" onclick="showYes()">Show Current Tenants</button>
-    <button class="Yes" onclick="hideYes()">Hide Current Tenants</button>
-</div>
-
-<div>
-    <table id="yes" class="table" style="display:block;">
-        <thead style="background-color:mediumblue">
-            <tr>
-                <th class="thyes">
-                    @Html.DisplayNameFor(model => model.Last_name)
-                </th>
-                <th class="thyes">
-                    @Html.DisplayNameFor(model => model.First_name)
-                </th>
-                <th class="thyes">
-                    @Html.DisplayNameFor(model => model.Lease_start_date)
-                </th>
-                <th class="thyes">
-                    @Html.DisplayNameFor(model => model.Lease_end_date)
-                </th>
-                <th class="thyes">
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th class="thyes">
-                    @Html.DisplayNameFor(model => model.Unit)
-                </th>
-                <th class="thyes">
-                    @Html.DisplayNameFor(model => model.Property)
-                </th>
-                <th class="thyes"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.OrderByDescending(item => item.Last_name))
-            {
-                if (item.Current.Equals("Yes"))
-                {
-                    <tr style="background-color:#e0faff">
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Last_name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.First_name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Lease_start_date)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Lease_end_date)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Unit)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Property)
-                        </td>
-                        <td>
-                            <a class="Edit" asp-action="Edit" asp-route-id="@item.TID">Edit</a>
-                            <a class="Details" asp-action="Details" asp-route-id="@item.TID">Manage</a>
-                        </td>
-
-                    </tr>
-                }
-
-            }
-
-        </tbody>
-    </table>
-</div>
-
-<div style="margin-top:70px;">
-    <button class="No" onclick="showNo()">Show Past Tenants</button>
-    <button class="No" onclick="hideNo()">Hide Past Tenants</button>
-</div>
-
-<div>
-    <table id="no" class="table" style="display:block;">
-        <thead style="background-color:dimgray;">
-            <tr>
-                <th class="thno">
-                    @Html.DisplayNameFor(model => model.Last_name)
-                </th>
-                <th class="thno">
-                    @Html.DisplayNameFor(model => model.First_name)
-                </th>
-                <th class="thno">
-                    @Html.DisplayNameFor(model => model.Lease_start_date)
-                </th>
-                <th class="thno">
-                    @Html.DisplayNameFor(model => model.Lease_end_date)
-                </th>
-                <th class="thno">
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th class="thno">
-                    @Html.DisplayNameFor(model => model.Unit)
-                </th>
-                <th class="thno">
-                    @Html.DisplayNameFor(model => model.Property)
-                </th>
-                <th class="thno"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.OrderByDescending(item => item.Last_name))
-            {
-                if (item.Current.Equals("No"))
-                {
-                    <tr style="background-color:#e6e6e6">
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Last_name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.First_name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Lease_start_date)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Lease_end_date)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Unit)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Property)
-                        </td>
-                        <td>
-                            <a class="Details" asp-action="Details" asp-route-id="@item.TID">Manage</a>
-                            <a class="Delete" asp-action="Delete" asp-route-id="@item.TID">Delete</a>
-                        </td>
-
-                    </tr>
-                }
-
-            }
-
-        </tbody>
-    </table>
-</div>
-
-<script>
-    function showNew() {
-        var showNew = document.getElementById('new');
-        showNew.style.display = "block";
-    }
-
-    function hideNew() {
-        var hideNew = document.getElementById('new');
-        hideNew.style.display = "none";
-    }
-
-    function showYes() {
-        var showYes = document.getElementById('yes');
-        showYes.style.display = "block";
-    }
-
-    function hideYes() {
-        var hideYes = document.getElementById('yes');
-        hideYes.style.display = "none";
-    }
-
-    function showNo() {
-        var showNo = document.getElementById('no');
-        showNo.style.display = "block";
-    }
-
-    function hideNo() {
-        var hideNo = document.getElementById('no');
-        hideNo.style.display = "none";
-    }
-</script>
+@switch (Model.ActiveTab)
+{
+    case PMApp.ViewModels.Tab.Current:
+        @await Component.InvokeAsync("CurrentTenants");
+        break;
+    case PMApp.ViewModels.Tab.Future:
+        @await Component.InvokeAsync("FutureTenants");
+        break;
+    case PMApp.ViewModels.Tab.Past:
+        @await Component.InvokeAsync("PastTenants");
+        break;
+    default:
+        break;
+}
 
